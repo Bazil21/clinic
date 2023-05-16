@@ -17,7 +17,7 @@
 // ini_set('display_errors', 1);
 // error_reporting(E_ALL);
 
-$config['base_url']	= 'http://localhost/HMSCI';
+$config['base_url']	= 'http://localhost/clinic';
 
 /*
 |--------------------------------------------------------------------------
