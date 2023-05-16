@@ -74,13 +74,13 @@
                                 <div class="control-group">
                                     <label class="control-label"><?php echo ('Email'); ?></label>
                                     <div class="controls">
-                                        <input type="text" class="validate[required]" name="email" value="<?php echo $row['email']; ?>" />
+                                        <input type="email" autocomplete="false" class="validate[required]" name="email" value="<?php echo $row['email']; ?>" />
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label"><?php echo ('Password'); ?></label>
                                     <div class="controls">
-                                        <input type="password" class="validate[required]" name="password" value="<?php echo $row['password']; ?>" />
+                                        <input type="password"  autocomplete="false" readonly onfocus="this.removeAttribute('readonly');"  class="validate[required]" name="password" value="<?php echo $row['password']; ?>" />
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -197,13 +197,13 @@
                         <div class="control-group">
                             <label class="control-label"><?php echo ('Email'); ?></label>
                             <div class="controls">
-                                <input type="text" class="validate[required]" name="email" />
+                                <input type="email" autocomplete="false" class="validate[required]" name="email" />
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><?php echo ('Password'); ?></label>
                             <div class="controls">
-                                <input type="password" class="validate[required]" name="password" />
+                                <input type="password"  autocomplete="false" readonly onfocus="this.removeAttribute('readonly');"  class="validate[required]" name="password" />
                             </div>
                         </div>
                         <div class="control-group">

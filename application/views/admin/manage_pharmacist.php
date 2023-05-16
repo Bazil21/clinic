@@ -1,3 +1,38 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #C6E0F3;
+        color: #000000;
+        font-weight: 600;
+    }
+
+    .control-group {
+        display: flex;
+        justify-content: center;
+    }
+
+    .control-label {
+        font-weight: 500;
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    input {
+        padding: 3px !important;
+    }
+
+    .selector {
+        width: 210px !important;
+    }
+
+    .uploader {
+        width: 53% !important;
+        margin: 5px;
+    }
+    .form-actions{
+        text-align: center;
+    }
+</style>
+
 <div class="box">
 	<div class="box-header">
     
@@ -61,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-actions">
+                        <div class="form-actions" >
                             <button type="submit" class="btn btn-primary"><?php echo ('Edit Pharmacist');?></button>
                         </div>
                     <?php echo form_close();?>
@@ -77,12 +112,12 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
                 	<thead>
                 		<tr>
-                    		<th><div>#</div></th>
-                    		<th><div><?php echo ('Pharmacist Name');?></div></th>
-                    		<th><div><?php echo ('Email');?></div></th>
-                    		<th><div><?php echo ('Address');?></div></th>
-                    		<th><div><?php echo ('Phone');?></div></th>
-                    		<th><div><?php echo ('Options');?></div></th>
+                    		<th style="padding: 5px;"><div>#</div></th>
+                    		<th style="padding: 5px;"><div><?php echo ('Pharmacist Name');?></div></th>
+                    		<th style="padding: 5px;"><div><?php echo ('Email');?></div></th>
+                    		<th style="padding: 5px;"><div><?php echo ('Address');?></div></th>
+                    		<th style="padding: 5px;"><div><?php echo ('Phone');?></div></th>
+                    		<th style="padding: 5px;"><div><?php echo ('Options');?></div></th>
 						</tr>
 					</thead>
                     <tbody>
@@ -125,13 +160,13 @@
                             <div class="control-group">
                                 <label class="control-label"><?php echo ('Email');?></label>
                                 <div class="controls">
-                                    <input type="text" class="validate[required]" name="email"/>
+                                    <input type="email"  autocomplete="false"  class="validate[required]" name="email"/>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label"><?php echo ('Password');?></label>
                                 <div class="controls">
-                                    <input type="password" class="validate[required]" name="password"/>
+                                    <input type="password" autocomplete="false" readonly onfocus="this.removeAttribute('readonly');" class="validate[required]" name="password"/>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -149,7 +184,7 @@
                             
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-success"><?php echo ('Add Pharmacist');?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo ('Add Pharmacist');?></button>
                         </div>
                     <?php echo form_close();?>                
                 </div>                

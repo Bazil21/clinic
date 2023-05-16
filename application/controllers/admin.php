@@ -221,6 +221,7 @@ class Admin extends CI_Controller
 		}
 		$page_data['page_name']  = 'manage_patient';
 		$page_data['page_title'] = ('Manage Patient');
+		$this->db->order_by('patient_id', 'desc');
 		$page_data['patients']   = $this->db->get('patient')->result_array();
 		$this->load->view('index', $page_data);
 	}
@@ -315,6 +316,7 @@ class Admin extends CI_Controller
 		}
 		$page_data['page_name']   = 'manage_pharmacist';
 		$page_data['page_title']  = ('Manage Pharmacist');
+		$this->db->order_by('pharmacist_id', 'desc');
 		$page_data['pharmacists'] = $this->db->get('pharmacist')->result_array();
 		$this->load->view('index', $page_data);
 	}
