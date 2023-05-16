@@ -19,9 +19,14 @@
     input {
         padding: 3px !important;
     }
-    
-     .selector {
+
+    .selector {
         width: 210px !important;
+    }
+
+    .uploader {
+        width: 53% !important;
+        margin: 5px;
     }
 </style>
 
@@ -58,7 +63,7 @@
                 <div class="tab-pane box active" id="edit" style="padding: 5px">
                     <div class="box-content">
                         <?php foreach ($edit_profile as $row) : ?>
-                            <?php echo form_open('admin/manage_doctor/edit/do_update/' . $row['doctor_id'], array('class' => 'form-horizontal validatable')); ?>
+                            <?php echo form_open('admin/manage_doctor/edit/do_update/' . $row['doctor_id'], array('class' => 'form-horizontal validatable', 'enctype' => 'multipart/form-data')); ?>
                             <div class="padded">
                                 <div class="control-group">
                                     <label class="control-label"><?php echo ('Name'); ?></label>
@@ -111,6 +116,13 @@
                                     <label class="control-label"><?php echo ('Profile'); ?></label>
                                     <div class="controls">
                                         <input type="text" class="" name="profile" value="<?php echo $row['profile']; ?>" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls" style="text-align: right;">
+                                        <input type="file" class="form-contorl" accept="image/*" name="doctor_img" id="image-upload" />
+                                        <img id="image-container" src="<?php echo  base_url() . "uploads/" . $row['image']; ?>" width="250px" height="350px" />
+                                        <input type="hidden" value="<?php echo $row['image']; ?>" name="old_cat">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +186,7 @@
 
             <div class="tab-pane box" id="add" style="padding: 5px">
                 <div class="box-content">
-                    <?php echo form_open('admin/manage_doctor/create/', array('class' => 'form-horizontal validatable')); ?>
+                    <?php echo form_open('admin/manage_doctor/create/', array('class' => 'form-horizontal validatable', 'enctype' => 'multipart/form-data')); ?>
                     <div class="padded">
                         <div class="control-group">
                             <label class="control-label"><?php echo ('Name'); ?></label>
@@ -225,6 +237,13 @@
                             <label class="control-label"><?php echo ('Profile'); ?></label>
                             <div class="controls">
                                 <input type="text" class="" name="profile" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls" style="text-align: right;">
+                                <input type="file" class="form-contorl" accept="image/*" name="doctor_img" id="image-upload" />
+                                <img id="image-container" src="<?php echo  base_url() . "uploads/" . $row['image']; ?>" width="250px" height="350px" />
+                              
                             </div>
                         </div>
                     </div>

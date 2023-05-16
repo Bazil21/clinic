@@ -11,6 +11,9 @@ class Admin extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		// $this->load->model(array(
+        //     "email_model",
+        // ));
 		$this->load->database();
 		/*cache control*/
 		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
@@ -18,7 +21,7 @@ class Admin extends CI_Controller
 		$this->output->set_header('Pragma: no-cache');
 		$this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	}
-	
+
 	/***Default function, redirects to login page if no admin logged in yet***/
 	public function index()
 	{
@@ -27,7 +30,7 @@ class Admin extends CI_Controller
 		if ($this->session->userdata('admin_login') == 1)
 			redirect(base_url() . 'index.php?admin/dashboard', 'refresh');
 	}
-	
+
 	/***ADMIN DASHBOARD***/
 	function dashboard()
 	{
@@ -37,13 +40,13 @@ class Admin extends CI_Controller
 		$page_data['page_title'] = ('Admin Dashboard');
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/***DEPARTMENTS OF DOCTORS********/
 	function manage_department($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']        = $this->input->post('name');
 			$data['description'] = $this->input->post('description');
@@ -58,7 +61,6 @@ class Admin extends CI_Controller
 			$this->db->update('department', $data);
 			$this->session->set_flashdata('flash_message', ('Department Updated'));
 			redirect(base_url() . 'index.php?admin/manage_department', 'refresh');
-			
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('department', array(
 				'department_id' => $param2
@@ -74,14 +76,13 @@ class Admin extends CI_Controller
 		$page_data['page_title']  = ('Manage Department');
 		$page_data['departments'] = $this->db->get('department')->result_array();
 		$this->load->view('index', $page_data);
-		
 	}
 	/***Manage doctors**/
 	function manage_doctor($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']          = $this->input->post('name');
 			$data['email']         = $this->input->post('email');
@@ -89,11 +90,31 @@ class Admin extends CI_Controller
 			$data['address']       = $this->input->post('address');
 			$data['phone']         = $this->input->post('phone');
 			$data['department_id'] = $this->input->post('department_id');
-			$data['profile']       = $this->input->post('profile');
+			$data['profile'] = $this->input->post('profile');
+			if (isset($_FILES['doctor_img'])) {
+
+				$projects_folder_path = './uploads';
+
+				$config['upload_path'] = $projects_folder_path;
+				$config['allowed_types'] = 'jpg|jpeg|gif|png';
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = TRUE;
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+				if (!$this->upload->do_upload('doctor_img')) {
+				} else {
+					$data_image_upload = array('upload_image_data' => $this->upload->data());
+					$filename = $data_image_upload['upload_image_data']['file_name'];
+				}
+			}
+			$data['image'] = $filename;
+
+
 			$this->db->insert('doctor', $data);
-			$this->email_model->account_opening_email('doctor', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
+			// $this->email_model->account_opening_email('doctor', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_doctor', 'refresh');
 		}
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -104,11 +125,29 @@ class Admin extends CI_Controller
 			$data['phone']         = $this->input->post('phone');
 			$data['department_id'] = $this->input->post('department_id');
 			$data['profile']       = $this->input->post('profile');
-			
+			$filename = $this->input->post('old_cat');
+		
+			if (isset($_FILES['doctor_img'])) {
+				$projects_folder_path = './uploads';
+
+				$config['upload_path'] = $projects_folder_path;
+				$config['allowed_types'] = 'jpg|jpeg|gif|png';
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = TRUE;
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+				if (!$this->upload->do_upload('doctor_img')) {
+				} else {
+					$data_image_upload = array('upload_image_data' => $this->upload->data());
+					$filename = $data_image_upload['upload_image_data']['file_name'];
+				}
+			}
+			$data['image'] = $filename;
 			$this->db->where('doctor_id', $param3);
 			$this->db->update('doctor', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_doctor', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('doctor', array(
@@ -119,22 +158,22 @@ class Admin extends CI_Controller
 			$this->db->where('doctor_id', $param2);
 			$this->db->delete('doctor');
 			$this->session->set_flashdata('flash_message', ('Account Deleted'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_doctor', 'refresh');
 		}
 		$page_data['page_name']  = 'manage_doctor';
 		$page_data['page_title'] = ('Manage Doctor');
+		$this->db->order_by('doctor_id', 'desc');
 		$page_data['doctors']    = $this->db->get('doctor')->result_array();
 		$this->load->view('index', $page_data);
-		
 	}
-	
+
 	/***Manage patients**/
 	function manage_patient($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']                      = $this->input->post('name');
 			$data['email']                     = $this->input->post('email');
@@ -149,7 +188,7 @@ class Admin extends CI_Controller
 			$this->db->insert('patient', $data);
 			$this->email_model->account_opening_email('patient', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_patient', 'refresh');
 		}
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -162,11 +201,11 @@ class Admin extends CI_Controller
 			$data['birth_date']  = $this->input->post('birth_date');
 			$data['age']         = $this->input->post('age');
 			$data['blood_group'] = $this->input->post('blood_group');
-			
+
 			$this->db->where('patient_id', $param3);
 			$this->db->update('patient', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_patient', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('patient', array(
@@ -177,7 +216,7 @@ class Admin extends CI_Controller
 			$this->db->where('patient_id', $param2);
 			$this->db->delete('patient');
 			$this->session->set_flashdata('flash_message', ('Account Deleted'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_patient', 'refresh');
 		}
 		$page_data['page_name']  = 'manage_patient';
@@ -185,14 +224,14 @@ class Admin extends CI_Controller
 		$page_data['patients']   = $this->db->get('patient')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
-	
+
+
 	/***Manage nurses**/
 	function manage_nurse($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']     = $this->input->post('name');
 			$data['email']    = $this->input->post('email');
@@ -202,7 +241,7 @@ class Admin extends CI_Controller
 			$this->db->insert('nurse', $data);
 			$this->email_model->account_opening_email('nurse', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_nurse', 'refresh');
 		}
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -214,7 +253,7 @@ class Admin extends CI_Controller
 			$this->db->where('nurse_id', $param3);
 			$this->db->update('nurse', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_nurse', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('nurse', array(
@@ -225,22 +264,21 @@ class Admin extends CI_Controller
 			$this->db->where('nurse_id', $param2);
 			$this->db->delete('nurse');
 			$this->session->set_flashdata('flash_message', ('Account Deleted'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_nurse', 'refresh');
 		}
 		$page_data['page_name']  = 'manage_nurse';
 		$page_data['page_title'] = ('Manage Nurse');
 		$page_data['nurses']     = $this->db->get('nurse')->result_array();
 		$this->load->view('index', $page_data);
-		
 	}
-	
+
 	/***Manage pharmacists**/
 	function manage_pharmacist($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']     = $this->input->post('name');
 			$data['email']    = $this->input->post('email');
@@ -261,7 +299,7 @@ class Admin extends CI_Controller
 			$this->db->where('pharmacist_id', $param3);
 			$this->db->update('pharmacist', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_pharmacist', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('pharmacist', array(
@@ -272,22 +310,21 @@ class Admin extends CI_Controller
 			$this->db->where('pharmacist_id', $param2);
 			$this->db->delete('pharmacist');
 			$this->session->set_flashdata('flash_message', ('Account Deleted'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_pharmacist', 'refresh');
 		}
 		$page_data['page_name']   = 'manage_pharmacist';
 		$page_data['page_title']  = ('Manage Pharmacist');
 		$page_data['pharmacists'] = $this->db->get('pharmacist')->result_array();
 		$this->load->view('index', $page_data);
-		
 	}
-	
+
 	/***Manage laboratorists**/
 	function manage_laboratorist($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']     = $this->input->post('name');
 			$data['email']    = $this->input->post('email');
@@ -308,7 +345,7 @@ class Admin extends CI_Controller
 			$this->db->where('laboratorist_id', $param3);
 			$this->db->update('laboratorist', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_laboratorist', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('laboratorist', array(
@@ -331,7 +368,7 @@ class Admin extends CI_Controller
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'create') {
 			$data['name']     = $this->input->post('name');
 			$data['email']    = $this->input->post('email');
@@ -341,7 +378,7 @@ class Admin extends CI_Controller
 			$this->db->insert('accountant', $data);
 			$this->email_model->account_opening_email('accountant', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_accountant', 'refresh');
 		}
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -370,75 +407,75 @@ class Admin extends CI_Controller
 		$page_data['accountants'] = $this->db->get('accountant')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW APPOINTMENT REPORT	********/
 	function view_appointment($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']    = 'view_appointment';
 		$page_data['page_title']   = ('View Appointment');
 		$page_data['appointments'] = $this->db->get('appointment')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW PAYMENT REPORT	********/
 	function view_payment($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']  = 'view_payment';
 		$page_data['page_title'] = ('View Payment');
 		$page_data['payments']   = $this->db->get('payment')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW BED STATUS	********/
 	function view_bed_status($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']      = 'view_bed_status';
 		$page_data['page_title']     = ('View Blood Bank');
 		$page_data['bed_allotments'] = $this->db->get('bed_allotment')->result_array();
 		$page_data['beds']           = $this->db->get('bed')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW BLOOD BANK	********/
 	function view_blood_bank($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']    = 'view_blood_bank';
 		$page_data['page_title']   = ('View Blood Bank');
 		$page_data['blood_donors'] = $this->db->get('blood_donor')->result_array();
 		$page_data['blood_bank']   = $this->db->get('blood_bank')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW MEDICINE********/
 	function view_medicine($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']  = 'view_medicine';
 		$page_data['page_title'] = ('View Medicine');
 		$page_data['medicines']  = $this->db->get('medicine')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*******VIEW MEDICINE********/
 	function view_report($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		$page_data['page_name']   = 'view_report';
 		$page_data['page_title']  = ('View ' . $param1 . ' Report');
 		$page_data['report_type'] = $param1;
@@ -447,13 +484,13 @@ class Admin extends CI_Controller
 		))->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/***MANAGE EMAIL TEMPLATE**/
 	function manage_email_template($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-		
+
 		if ($param2 == 'do_update') {
 			$this->db->where('task', $param1);
 			$this->db->update('email_template', array(
@@ -471,20 +508,20 @@ class Admin extends CI_Controller
 		$page_data['template_task'] = $param1;
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/***MANAGE NOTICEBOARD, WILL BE SEEN BY ALL ACCOUNTS DASHBOARD**/
 	function manage_noticeboard($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-		
+
 		if ($param1 == 'create') {
 			$data['notice_title']     = $this->input->post('notice_title');
 			$data['notice']           = $this->input->post('notice');
 			$data['create_timestamp'] = strtotime($this->input->post('create_timestamp'));
 			$this->db->insert('noticeboard', $data);
 			$this->session->set_flashdata('flash_message', ('Report Created'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_noticeboard', 'refresh');
 		}
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -494,7 +531,7 @@ class Admin extends CI_Controller
 			$this->db->where('notice_id', $param3);
 			$this->db->update('noticeboard', $data);
 			$this->session->set_flashdata('flash_message', ('Notice Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_noticeboard', 'refresh');
 		} else if ($param1 == 'edit') {
 			$page_data['edit_profile'] = $this->db->get_where('noticeboard', array(
@@ -505,7 +542,7 @@ class Admin extends CI_Controller
 			$this->db->where('notice_id', $param2);
 			$this->db->delete('noticeboard');
 			$this->session->set_flashdata('flash_message', ('Notice Deleted'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_noticeboard', 'refresh');
 		}
 		$page_data['page_name']  = 'manage_noticeboard';
@@ -513,14 +550,14 @@ class Admin extends CI_Controller
 		$page_data['notices']    = $this->db->get('noticeboard')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
-	
+
+
 	/*****SITE/SYSTEM SETTINGS*********/
 	function system_settings($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-		
+
 		if ($param2 == 'do_update') {
 			$this->db->where('type', $param1);
 			$this->db->update('settings', array(
@@ -539,26 +576,25 @@ class Admin extends CI_Controller
 		$page_data['settings']   = $this->db->get('settings')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/*****LANGUAGE SETTINGS*********/
 	function manage_language($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-		
+
 		if ($param1 == 'edit_phrase') {
-			$page_data['edit_profile'] 	= $param2;	
+			$page_data['edit_profile'] 	= $param2;
 		}
 		if ($param1 == 'update_phrase') {
 			$language	=	$param2;
 			$total_phrase	=	$this->input->post('total_phrase');
-			for($i = 1 ; $i < $total_phrase ; $i++)
-			{
+			for ($i = 1; $i < $total_phrase; $i++) {
 				//$data[$language]	=	$this->input->post('phrase').$i;
-				$this->db->where('phrase_id' , $i);
-				$this->db->update('language' , array($language => $this->input->post('phrase'.$i)));
+				$this->db->where('phrase_id', $i);
+				$this->db->update('language', array($language => $this->input->post('phrase' . $i)));
 			}
-			redirect(base_url() . 'index.php?admin/manage_language/edit_phrase/'.$language, 'refresh');
+			redirect(base_url() . 'index.php?admin/manage_language/edit_phrase/' . $language, 'refresh');
 		}
 		if ($param1 == 'do_update') {
 			$language        = $this->input->post('language');
@@ -583,7 +619,7 @@ class Admin extends CI_Controller
 				)
 			);
 			$this->dbforge->add_column('language', $fields);
-			
+
 			$this->session->set_flashdata('flash_message', ('Settings Updated'));
 			redirect(base_url() . 'index.php?admin/manage_language/', 'refresh');
 		}
@@ -592,7 +628,7 @@ class Admin extends CI_Controller
 			$this->load->dbforge();
 			$this->dbforge->drop_column('language', $language);
 			$this->session->set_flashdata('flash_message', ('Settings Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_language/', 'refresh');
 		}
 		$page_data['page_name']        = 'manage_language';
@@ -600,14 +636,14 @@ class Admin extends CI_Controller
 		//$page_data['language_phrases'] = $this->db->get('language')->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
-	
+
+
 	/*****BACKUP / RESTORE / DELETE DATA PAGE**********/
 	function backup_restore($operation = '', $type = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect('login', 'refresh');
-		
+
 		if ($operation == 'create') {
 			$this->crud_model->create_backup($type);
 		}
@@ -619,35 +655,35 @@ class Admin extends CI_Controller
 			$this->crud_model->truncate($type);
 			redirect(base_url() . 'index.php?admin/backup_restore/', 'refresh');
 		}
-		
+
 		$page_data['page_name']  = 'backup_restore';
 		$page_data['page_title'] = ('Backup Restore');
 		$this->load->view('index', $page_data);
 	}
-	
+
 	/******MANAGE OWN PROFILE AND CHANGE PASSWORD***/
 	function manage_profile($param1 = '', $param2 = '', $param3 = '')
 	{
 		if ($this->session->userdata('admin_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
-			
+
 		if ($param1 == 'update_profile_info') {
 			$data['name']    = $this->input->post('name');
 			$data['email']   = $this->input->post('email');
 			$data['address'] = $this->input->post('address');
 			$data['phone']   = $this->input->post('phone');
-			
+
 			$this->db->where('admin_id', $this->session->userdata('admin_id'));
 			$this->db->update('admin', $data);
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
-			
+
 			redirect(base_url() . 'index.php?admin/manage_profile/', 'refresh');
 		}
 		if ($param1 == 'change_password') {
 			$data['password']             = $this->input->post('password');
 			$data['new_password']         = $this->input->post('new_password');
 			$data['confirm_new_password'] = $this->input->post('confirm_new_password');
-			
+
 			$current_password = $this->db->get_where('admin', array(
 				'admin_id' => $this->session->userdata('admin_id')
 			))->row()->password;
@@ -660,7 +696,7 @@ class Admin extends CI_Controller
 			} else {
 				$this->session->set_flashdata('flash_message', ('Password Mismatch'));
 			}
-			
+
 			redirect(base_url() . 'index.php?admin/manage_profile/', 'refresh');
 		}
 		$page_data['page_name']    = 'manage_profile';
@@ -670,5 +706,4 @@ class Admin extends CI_Controller
 		))->result_array();
 		$this->load->view('index', $page_data);
 	}
-	
 }
