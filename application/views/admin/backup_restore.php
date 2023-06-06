@@ -2,147 +2,70 @@
 
 	<div class="box-header">
 
-    
 
-    	<!------CONTROL TABS START------->
+
+		<!------CONTROL TABS START------->
 
 		<ul class="nav nav-tabs nav-tabs-left">
 
 			<li class="active">
 
-            	<a href="#backup" data-toggle="tab"><i class="icon-align-justify"></i> 
+				<a href="#backup" data-toggle="tab"><i class="icon-align-justify"></i>
 
-					<?php echo ('Backup');?>
+					<?php echo ('Backup'); ?>
 
-                    	</a></li>
+				</a>
+			</li>
 
 			<li class="">
 
-            	<a href="#restore" data-toggle="tab"><i class="icon-align-justify"></i> 
+				<a href="#restore" data-toggle="tab"><i class="icon-align-justify"></i>
 
-					<?php echo ('Restore');?>
+					<?php echo ('Restore'); ?>
 
-                    	</a></li>
+				</a>
+			</li>
 
 		</ul>
 
-    	<!------CONTROL TABS END------->
+		<!------CONTROL TABS END------->
 
-        
+
 
 	</div>
 
 	<div class="box-content padded">
 
-		<div class="tab-content">            
+		<div class="tab-content">
 
-            <!----TABLE LISTING STARTS--->
+			<!----TABLE LISTING STARTS--->
 
-            <div class="tab-pane box active span7" id="backup">
+			<div class="tab-pane box active span7" style="border: 0px; text-align:center;" id="backup">
 
-				<center>
-
-                <table cellpadding="0" cellspacing="0" border="0" class="table table-normal" >
-
-                    <tbody>
-
-                    	<?php 
-
-						for($i = 1; $i<= 14; $i++):
-
-						
-
-							if($i	==	1)	$type	=	'doctor';
-
-							else if($i	==	2)$type	=	'patient';
-
-							else if($i	==	3)$type	=	'nurse';
-
-							else if($i	==	4)$type	=	'pharmacist';
-
-							else if($i	==	5)$type	=	'laboratorist';
-
-							else if($i	==	6)$type	=	'accountant';
-
-							else if($i	==	7)$type	=	'appointment';
-
-							else if($i	==	8)$type	=	'payment';
-
-							else if($i	==	9)$type	=	'blood_bank';
-
-							else if($i	==	10)$type=	'medicine';
-
-							else if($i	==	11)$type=	'report';
-
-							else if($i	==	12)$type=	'noticeboard';
-
-							else if($i	==	13)$type=	'language';
-
-							else if($i	==	14)$type=	'all';
-
-							?>
-
-							<tr>
-
-								<td><?php echo ($type);?></td>
-
-								<td align="center">
-
-									<a href="<?php echo base_url();?>index.php?admin/backup_restore/create/<?php echo $type;?>" 
-
-										class="btn btn-default" rel="tooltip" data-original-title="download backup"><i class="icon-download-alt" ></i>
-
-											</a>
-
-									<a href="<?php echo base_url();?>index.php?admin/backup_restore/delete/<?php echo $type;?>" 
-
-										class="btn btn-default" rel="tooltip" data-original-title="delete data" onclick="return confirm('delete confirm?');"><i class="icon-trash"></i>
-
-											</a>
-
-								</td>
-
-							</tr>
-
-							<?php 
-
-						endfor;
-
-						?>
-
-                    </tbody>
-
-                </table>
-
-                </center>
+					<a name="" id="" class="btn btn-primary" data-original-title="download backup" href="<?php echo base_url(); ?>index.php?admin/backup_restore/create/<?php echo $type; ?>" role="button">Take Backup of Your Database</a>
 
 			</div>
 
-            <!----TABLE LISTING ENDS--->
-
-            
-
-            <!----RESTORE--->
-
-            <div class="tab-pane box  span6" id="restore">
+			<!----TABLE LISTING ENDS--->
 
 
 
-                <?php echo form_open('admin/backup_restore/restore' , array('enctype' => 'multipart/form-data'));?>
 
-                    <input name="userfile" type="file" />
+			<div class="tab-pane box  span6" id="restore">
 
-                    <br /><br />
 
-                    <center><input type="submit" class="btn btn-blue" value="<?php echo ('Upload & Restore from Backup');?>" /></center>
 
-                    <br />
+				<?php echo form_open('admin/backup_restore/restore', array('enctype' => 'multipart/form-data')); ?>
+				<input name="backup_file" type="file" />
+				<br /><br />
+				<center><input type="submit" class="btn btn-blue" value="<?php echo 'Upload & Restore from Backup'; ?>" /></center>
+				<br />
+				<?php echo form_close(); ?>
 
-                <?php echo form_close();?>
 
 			</div>
 
-            <!----RESTORE ENDS--->
+			<!----RESTORE ENDS--->
 
 		</div>
 

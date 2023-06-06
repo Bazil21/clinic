@@ -1,321 +1,359 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #C6E0F3;
+        color: #000000;
+        font-weight: 600;
+    }
+
+    .control-group {
+        display: flex;
+        justify-content: center;
+    }
+
+    .control-label {
+        font-weight: 500;
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    input {
+        padding: 3px !important;
+    }
+
+    .selector {
+        width: 210px !important;
+    }
+</style>
 <div class="box">
 
-	<div class="box-header">
+    <div class="box-header">
 
-    
 
-    	<!------CONTROL TABS START------->
 
-		<ul class="nav nav-tabs nav-tabs-left">
+        <!------CONTROL TABS START------->
 
-        	<?php if(isset($edit_profile)):?>
+        <ul class="nav nav-tabs nav-tabs-left">
 
-			<li class="active">
+            <?php if (isset($edit_profile)) : ?>
 
-            	<a href="#edit" data-toggle="tab"><i class="icon-wrench"></i> 
+                <li class="active">
 
-					<?php echo ('Edit Laboratorist');?>
+                    <a href="#edit" data-toggle="tab"><i class="icon-wrench"></i>
 
-                    	</a></li>
+                        <?php echo ('Edit Laboratorist'); ?>
 
-            <?php endif;?>
+                    </a>
+                </li>
 
-			<li class="<?php if(!isset($edit_profile))echo 'active';?>">
+            <?php endif; ?>
 
-            	<a href="#list" data-toggle="tab"><i class="icon-align-justify"></i> 
+            <li class="<?php if (!isset($edit_profile)) echo 'active'; ?>">
 
-					<?php echo ('Laboratorist List');?>
+                <a href="#list" data-toggle="tab"><i class="icon-align-justify"></i>
 
-                    	</a></li>
+                    <?php echo ('Laboratorist List'); ?>
 
-			<li>
+                </a>
+            </li>
 
-            	<a href="#add" data-toggle="tab"><i class="icon-plus"></i>
+            <li>
 
-					<?php echo ('Add Laboratorist');?>
+                <a href="#add" data-toggle="tab"><i class="icon-plus"></i>
 
-                    	</a></li>
+                    <?php echo ('Add Laboratorist'); ?>
 
-		</ul>
+                </a>
+            </li>
 
-    	<!------CONTROL TABS END------->
+        </ul>
 
-        
+        <!------CONTROL TABS END------->
 
-	</div>
 
-	<div class="box-content padded">
 
-		<div class="tab-content">
+    </div>
 
-        	<!----EDITING FORM STARTS---->
+    <div class="box-content padded">
 
-        	<?php if(isset($edit_profile)):?>
+        <div class="tab-content">
 
-			<div class="tab-pane box active" id="edit" style="padding: 5px">
+            <!----EDITING FORM STARTS---->
 
-                <div class="box-content">
+            <?php if (isset($edit_profile)) : ?>
 
-                	<?php foreach($edit_profile as $row):?>
+                <div class="tab-pane box active" id="edit" style="padding: 5px">
 
-                    <?php echo form_open('admin/manage_laboratorist/edit/do_update/'.$row['laboratorist_id'] , array('class' => 'form-horizontal validatable'));?>
+                    <div class="box-content">
 
-                        <div class="padded">
+                        <?php foreach ($edit_profile as $row) : ?>
 
-                            <div class="control-group">
+                            <?php echo form_open('admin/manage_laboratorist/edit/do_update/' . $row['laboratorist_id'], array('class' => 'form-horizontal validatable')); ?>
 
-                                <label class="control-label"><?php echo ('Name');?></label>
+                            <div class="padded">
 
-                                <div class="controls">
+                                <div class="control-group">
 
-                                    <input type="text" class="validate[required]" name="name" value="<?php echo $row['name'];?>"/>
+                                    <label class="control-label"><?php echo ('Name'); ?></label>
+
+                                    <div class="controls">
+
+                                        <input type="text" class="validate[required]" name="name" value="<?php echo $row['name']; ?>" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label"><?php echo ('Email'); ?></label>
+
+                                    <div class="controls">
+
+                                        <input type="text" class="validate[required]" name="email" value="<?php echo $row['email']; ?>" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label"><?php echo ('Password'); ?></label>
+
+                                    <div class="controls">
+
+                                        <input type="password" class="validate[required]" name="password" value="<?php echo $row['password']; ?>" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label"><?php echo ('Address'); ?></label>
+
+                                    <div class="controls">
+
+                                        <input type="text" class="" name="address" value="<?php echo $row['address']; ?>" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label"><?php echo ('Phone'); ?></label>
+
+                                    <div class="controls">
+
+                                        <input type="text" class="" name="phone" value="<?php echo $row['phone']; ?>" />
+
+                                    </div>
 
                                 </div>
 
                             </div>
 
-                            <div class="control-group">
+                            <div class="form-actions" style="text-align: center;">
 
-                                <label class="control-label"><?php echo ('Email');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="validate[required]" name="email" value="<?php echo $row['email'];?>"/>
-
-                                </div>
+                                <button type="submit" class="btn btn-primary"><?php echo ('Update Laboratorist'); ?></button>
 
                             </div>
 
-                            <div class="control-group">
+                            <?php echo form_close(); ?>
 
-                                <label class="control-label"><?php echo ('Password');?></label>
+                        <?php endforeach; ?>
 
-                                <div class="controls">
-
-                                    <input type="password" class="validate[required]" name="password" value="<?php echo $row['password'];?>"/>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Address');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="" name="address" value="<?php echo $row['address'];?>"/>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Phone');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="" name="phone" value="<?php echo $row['phone'];?>"/>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-actions">
-
-                            <button type="submit" class="btn btn-primary"><?php echo ('Edit Laboratorist');?></button>
-
-                        </div>
-
-                    <?php echo form_close();?>
-
-                    <?php endforeach;?>
+                    </div>
 
                 </div>
 
-			</div>
-
-            <?php endif;?>
+            <?php endif; ?>
 
             <!----EDITING FORM ENDS--->
 
-            
+
 
             <!----TABLE LISTING STARTS--->
 
-            <div class="tab-pane box <?php if(!isset($edit_profile))echo 'active';?>" id="list">
+            <div class="tab-pane box <?php if (!isset($edit_profile)) echo 'active'; ?>" id="list">
 
-				
+
 
                 <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
 
-                	<thead>
-
-                		<tr>
-
-                    		<th><div>#</div></th>
-
-                    		<th><div><?php echo ('Laboratorist Name');?></div></th>
-
-                    		<th><div><?php echo ('Email');?></div></th>
-
-                    		<th><div><?php echo ('Address');?></div></th>
-
-                    		<th><div><?php echo ('Phone');?></div></th>
-
-                    		<th><div><?php echo ('Options');?></div></th>
-
-						</tr>
-
-					</thead>
-
-                    <tbody>
-
-                    	<?php $count = 1;foreach($laboratorists as $row):?>
+                    <thead>
 
                         <tr>
 
-                            <td><?php echo $count++;?></td>
+                            <th>
+                                <div>#</div>
+                            </th>
 
-							<td><?php echo $row['name'];?></td>
+                            <th>
+                                <div><?php echo ('Laboratorist Name'); ?></div>
+                            </th>
 
-							<td><?php echo $row['email'];?></td>
+                            <th>
+                                <div><?php echo ('Email'); ?></div>
+                            </th>
 
-							<td><?php echo $row['address'];?></td>
+                            <th>
+                                <div><?php echo ('Address'); ?></div>
+                            </th>
 
-							<td><?php echo $row['phone'];?></td>
+                            <th>
+                                <div><?php echo ('Phone'); ?></div>
+                            </th>
 
-							<td align="center">
-
-                            	<a href="<?php echo base_url();?>index.php?admin/manage_laboratorist/edit/<?php echo $row['laboratorist_id'];?>"
-
-                                	rel="tooltip" data-placement="top" data-original-title="<?php echo ('Edit');?>" class="btn btn-primary">
-
-                                		<i class="icon-wrench"></i>
-
-                                </a>
-
-                            	<a href="<?php echo base_url();?>index.php?admin/manage_laboratorist/delete/<?php echo $row['laboratorist_id'];?>" onclick="return confirm('delete?')"
-
-                                	rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete');?>" class="btn btn-danger">
-
-                                		<i class="icon-trash"></i>
-
-                                </a>
-
-        					</td>
+                            <th>
+                                <div><?php echo ('Options'); ?></div>
+                            </th>
 
                         </tr>
 
-                        <?php endforeach;?>
+                    </thead>
+
+                    <tbody>
+
+                        <?php $count = 1;
+                        foreach ($laboratorists as $row) : ?>
+
+                            <tr>
+
+                                <td><?php echo $count++; ?></td>
+
+                                <td><?php echo $row['name']; ?></td>
+
+                                <td><?php echo $row['email']; ?></td>
+
+                                <td><?php echo $row['address']; ?></td>
+
+                                <td><?php echo $row['phone']; ?></td>
+
+                                <td align="center">
+
+                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_laboratorist/edit/<?php echo $row['laboratorist_id']; ?>" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Edit'); ?>" class="btn btn-success">
+
+                                    <i class="icon-pencil"></i>
+
+                                    </a>
+
+                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_laboratorist/delete/<?php echo $row['laboratorist_id']; ?>" onclick="return confirm('delete?')" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete'); ?>" class="btn btn-danger">
+
+                                    <i class="icon-trash"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
 
                     </tbody>
 
                 </table>
 
-			</div>
+            </div>
 
             <!----TABLE LISTING ENDS--->
 
-            
 
-            
 
-			<!----CREATION FORM STARTS---->
 
-			<div class="tab-pane box" id="add" style="padding: 5px">
+
+            <!----CREATION FORM STARTS---->
+
+            <div class="tab-pane box" id="add" style="padding: 5px">
 
                 <div class="box-content">
 
-                    <?php echo form_open('admin/manage_laboratorist/create/' , array('class' => 'form-horizontal validatable'));?>
+                    <?php echo form_open('admin/manage_laboratorist/create/', array('class' => 'form-horizontal validatable')); ?>
 
-                        <div class="padded">
+                    <div class="padded">
 
-                            <div class="control-group">
+                        <div class="control-group">
 
-                                <label class="control-label"><?php echo ('Name');?></label>
+                            <label class="control-label"><?php echo ('Name'); ?></label>
 
-                                <div class="controls">
+                            <div class="controls">
 
-                                    <input type="text" class="validate[required]" name="name"/>
-
-                                </div>
+                                <input type="text" class="validate[required]" name="name" />
 
                             </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Email');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="validate[required]" name="email"/>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Password');?></label>
-
-                                <div class="controls">
-
-                                    <input type="password" class="validate[required]" name="password"/>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Address');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="" name="address"/>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Phone');?></label>
-
-                                <div class="controls">
-
-                                    <input type="text" class="" name="phone"/>
-
-                                </div>
-
-                            </div>
-
-                            
 
                         </div>
 
-                        <div class="form-actions">
+                        <div class="control-group">
 
-                            <button type="submit" class="btn btn-success"><?php echo ('Add Laboratorist');?></button>
+                            <label class="control-label"><?php echo ('Email'); ?></label>
+
+                            <div class="controls">
+
+                                <input type="text" class="validate[required]" name="email" />
+
+                            </div>
 
                         </div>
 
-                    <?php echo form_close();?>                
+                        <div class="control-group">
 
-                </div>                
+                            <label class="control-label"><?php echo ('Password'); ?></label>
 
-			</div>
+                            <div class="controls">
 
-			<!----CREATION FORM ENDS--->
+                                <input type="password" class="validate[required]" name="password" />
 
-            
+                            </div>
 
-		</div>
+                        </div>
 
-	</div>
+                        <div class="control-group">
+
+                            <label class="control-label"><?php echo ('Address'); ?></label>
+
+                            <div class="controls">
+
+                                <input type="text" class="" name="address" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label class="control-label"><?php echo ('Phone'); ?></label>
+
+                            <div class="controls">
+
+                                <input type="text" class="" name="phone" />
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="form-actions" style="text-align: center;">
+
+                        <button type="submit" class="btn btn-success"><?php echo ('Add Laboratorist'); ?></button>
+
+                    </div>
+
+                    <?php echo form_close(); ?>
+
+                </div>
+
+            </div>
+
+            <!----CREATION FORM ENDS--->
+
+
+
+        </div>
+
+    </div>
 
 </div>

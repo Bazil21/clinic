@@ -239,35 +239,9 @@
 
                 </li>
 
-                <li class="<?php if($page_name == 'view_payment')echo 'active';?>">
+                
 
-                  <a href="<?php echo base_url();?>index.php?admin/view_payment">
-
-                      <i class="icon-money"></i> <?php echo ('View Payment');?>
-
-                  </a>
-
-                </li>
-
-                <li class="<?php if($page_name == 'view_bed_status')echo 'active';?>">
-
-                  <a href="<?php echo base_url();?>index.php?admin/view_bed_status">
-
-                      <i class="icon-hdd"></i> <?php echo ('View Bed Status');?>
-
-                  </a>
-
-                </li>
-
-                <li class="<?php if($page_name == 'view_blood_bank')echo 'active';?>">
-
-                  <a href="<?php echo base_url();?>index.php?admin/view_blood_bank">
-
-                      <i class="icon-tint"></i> <?php echo ('View Blood Bank');?>
-
-                  </a>
-
-                </li>
+               
 
                 <li class="<?php if($page_name == 'view_medicine')echo 'active';?>">
 
@@ -279,35 +253,11 @@
 
                 </li>
 
-                <li class="<?php if($page_name == 'view_report' && $report_type	==	'operation')echo 'active';?>">
+                
 
-                  <a href="<?php echo base_url();?>index.php?admin/view_report/operation">
+             
 
-                      <i class="icon-reorder"></i> <?php echo ('View Operation');?>
-
-                  </a>
-
-                </li>
-
-                <li class="<?php if($page_name == 'view_report' && $report_type	==	'birth')echo 'active';?>">
-
-                  <a href="<?php echo base_url();?>index.php?admin/view_report/birth">
-
-                      <i class="icon-github-alt"></i> <?php echo ('View Birth Report');?>
-
-                  </a>
-
-                </li>
-
-                <li class="<?php if($page_name == 'view_report' && $report_type	==	'death')echo 'active';?>">
-
-                  <a href="<?php echo base_url();?>index.php?admin/view_report/death">
-
-                      <i class="icon-user"></i> <?php echo ('View Death Report');?>
-
-                  </a>
-
-                </li>
+              
 
             </ul>
 
@@ -376,16 +326,6 @@
                   <a href="<?php echo base_url();?>index.php?admin/system_settings">
 
                       <i class="icon-h-sign"></i> <?php echo ('System Settings');?>
-
-                  </a>
-
-                </li>
-
-                <li class="<?php if($page_name == 'manage_language')echo 'active';?>">
-
-                  <a href="<?php echo base_url();?>index.php?admin/manage_language">
-
-                      <i class="icon-globe"></i> <?php echo ('Manage Language');?>
 
                   </a>
 

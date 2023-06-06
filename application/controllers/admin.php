@@ -12,8 +12,8 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		// $this->load->model(array(
-        //     "email_model",
-        // ));
+		//     "email_model",
+		// ));
 		$this->load->database();
 		/*cache control*/
 		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
@@ -126,7 +126,7 @@ class Admin extends CI_Controller
 			$data['department_id'] = $this->input->post('department_id');
 			$data['profile']       = $this->input->post('profile');
 			$filename = $this->input->post('old_cat');
-		
+
 			if (isset($_FILES['doctor_img'])) {
 				$projects_folder_path = './uploads';
 
@@ -647,11 +647,123 @@ class Admin extends CI_Controller
 			redirect('login', 'refresh');
 
 		if ($operation == 'create') {
-			$this->crud_model->create_backup($type);
+			$dbhost = $_SERVER['SERVER_NAME'];
+			$dbuser = 'root';
+			$dbpass = '';
+			$dbname = 'hmsci';
+			$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+			$backupAlert = '';
+			$tables = array();
+			$result = mysqli_query($connection, "SHOW TABLES");
+			if (!$result) {
+				$backupAlert = 'Error found.<br/>ERROR : ' . mysqli_error($connection) . 'ERROR NO :' . mysqli_errno($connection);
+			} else {
+				while ($row = mysqli_fetch_row($result)) {
+					$tables[] = $row[0];
+				}
+				mysqli_free_result($result);
+
+				$return = '';
+				foreach ($tables as $table) {
+					$result = mysqli_query($connection, "SELECT * FROM " . $table);
+					if (!$result) {
+						$backupAlert = 'Error found.<br/>ERROR : ' . mysqli_error($connection) . 'ERROR NO :' . mysqli_errno($connection);
+					} else {
+						$num_fields = mysqli_num_fields($result);
+						if (!$num_fields) {
+							$backupAlert = 'Error found.<br/>ERROR : ' . mysqli_error($connection) . 'ERROR NO :' . mysqli_errno($connection);
+						} else {
+							$return .= 'DROP TABLE ' . $table . ';';
+							$row2 = mysqli_fetch_row(mysqli_query($connection, 'SHOW CREATE TABLE ' . $table));
+							if (!$row2) {
+								$backupAlert = 'Error found.<br/>ERROR : ' . mysqli_error($connection) . 'ERROR NO :' . mysqli_errno($connection);
+							} else {
+								$return .= "\n\n" . $row2[1] . ";\n\n";
+								while ($row = mysqli_fetch_row($result)) {
+									$return .= 'INSERT INTO ' . $table . ' VALUES(';
+									for ($j = 0; $j < $num_fields; $j++) {
+										$row[$j] = addslashes($row[$j]);
+										if (isset($row[$j])) {
+											$return .= '"' . $row[$j] . '"';
+										} else {
+											$return .= '""';
+										}
+										if ($j < $num_fields - 1) {
+											$return .= ',';
+										}
+									}
+									$return .= ");\n";
+								}
+								$return .= "\n\n\n";
+							}
+
+							$backup_file = $dbname . date("Y-m-d-H-i-s") . '.sql';
+							$handle = fopen($backup_file, 'w+');
+							fwrite($handle, $return);
+							fclose($handle);
+
+							// Download the backup file
+							header('Content-Description: File Transfer');
+							header('Content-Type: application/octet-stream');
+							header('Content-Disposition: attachment; filename=' . basename($backup_file));
+							header('Content-Length: ' . filesize($backup_file));
+							readfile($backup_file);
+
+							// Delete the backup file from the server
+							unlink($backup_file);
+
+							exit; // Stop further execution of the script
+						}
+					}
+				}
+			}
+
+			echo $backupAlert;
 		}
 		if ($operation == 'restore') {
-			$this->crud_model->restore_backup();
-			redirect(base_url() . 'index.php?admin/backup_restore/', 'refresh');
+
+			if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['backup_file'])) {
+				$backup_file = $_FILES['backup_file']['tmp_name'];
+
+				$dbhost = 'localhost';
+				$dbuser = 'root';
+				$dbpass = '';
+				$dbname = 'hmsci';
+
+				$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+				$restoreAlert = '';
+
+				if (!$connection) {
+					$restoreAlert = 'Error connecting to the database.';
+				} else {
+					$sql = file_get_contents($backup_file);
+
+					if (!$sql) {
+						$restoreAlert = 'Error reading the backup file.';
+					} else {
+						$statements = explode(';', $sql);
+
+						foreach ($statements as $statement) {
+							if (!empty(trim($statement))) {
+								$result = mysqli_query($connection, $statement);
+								if (!$result) {
+									$restoreAlert = 'Error executing SQL statement: ' . mysqli_error($connection);
+									break;
+								}
+							}
+						}
+
+						if (empty($restoreAlert)) {
+							$restoreAlert = 'Backup restored successfully!';
+						}
+					}
+
+					mysqli_close($connection);
+				}
+
+				echo $restoreAlert;
+			}
 		}
 		if ($operation == 'delete') {
 			$this->crud_model->truncate($type);
