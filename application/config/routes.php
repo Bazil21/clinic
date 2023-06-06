@@ -82,17 +82,18 @@
 
 /*
 
-|	initial default controller will be 'login' 
+|	initial default controller will be 'Web' 
 
-|	after logination is completed successfully, the default controller will be 'login'
+|	after logination is completed successfully, the default controller will be 'Web'
 
 */
 
 
 
-$route['default_controller'] = "login";
+$route['default_controller'] = "Web";
 
-$route['404_override'] = 'login/four_zero_four';
+$route['404_override'] = 'Web/four_zero_four';
+
 
 
 
