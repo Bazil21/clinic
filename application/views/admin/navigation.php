@@ -250,16 +250,7 @@
 
 
 
-				<li class="<?php if ($page_name == 'view_medicine') echo 'active'; ?>">
-
-					<a href="<?php echo base_url(); ?>index.php?admin/view_medicine">
-
-						<i class="icon-medkit"></i> <?php echo ('View Medicine'); ?>
-
-					</a>
-
-				</li>
-
+				
 
 
 

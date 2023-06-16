@@ -109,8 +109,6 @@ class Admin extends CI_Controller
 				}
 			}
 			$data['image'] = $filename;
-
-
 			$this->db->insert('doctor', $data);
 			// $this->email_model->account_opening_email('doctor', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
@@ -230,7 +228,6 @@ class Admin extends CI_Controller
 			$data['blood_group']               = $this->input->post('blood_group');
 			$data['account_opening_timestamp'] = strtotime(date('Y-m-d') . ' ' . date('H:i:s'));
 			$this->db->insert('patient', $data);
-			$this->email_model->account_opening_email('patient', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 
 			redirect(base_url() . 'index.php?admin/manage_patient', 'refresh');
@@ -284,7 +281,6 @@ class Admin extends CI_Controller
 			$data['address']  = $this->input->post('address');
 			$data['phone']    = $this->input->post('phone');
 			$this->db->insert('nurse', $data);
-			$this->email_model->account_opening_email('nurse', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 
 			redirect(base_url() . 'index.php?admin/manage_nurse', 'refresh');
@@ -331,7 +327,6 @@ class Admin extends CI_Controller
 			$data['address']  = $this->input->post('address');
 			$data['phone']    = $this->input->post('phone');
 			$this->db->insert('pharmacist', $data);
-			$this->email_model->account_opening_email('pharmacist', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 			redirect(base_url() . 'index.php?admin/manage_pharmacist', 'refresh');
 		}
@@ -378,7 +373,6 @@ class Admin extends CI_Controller
 			$data['address']  = $this->input->post('address');
 			$data['phone']    = $this->input->post('phone');
 			$this->db->insert('laboratorist', $data);
-			$this->email_model->account_opening_email('laboratorist', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 			redirect(base_url() . 'index.php?admin/manage_laboratorist', 'refresh');
 		}
@@ -422,7 +416,6 @@ class Admin extends CI_Controller
 			$data['address']  = $this->input->post('address');
 			$data['phone']    = $this->input->post('phone');
 			$this->db->insert('accountant', $data);
-			$this->email_model->account_opening_email('accountant', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 
 			redirect(base_url() . 'index.php?admin/manage_accountant', 'refresh');
