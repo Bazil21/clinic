@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Clinic  Bootstrap Template - Index</title>
+  <title>Clinic Bootstrap Template - Index</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -71,23 +71,6 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
           <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -102,7 +85,7 @@
   <section id="hero" class="d-flex align-items-center">
     <div class="container">
       <h1>Welcome to Clinic </h1>
-      <h2>We are team of talented designers making websites with Bootstrap</h2>
+      <h2>We follow the latest advanced technique in joint arthroscopy to treat sport injuries, degenerative pathologies and all other joints disorders</h2>
       <a href="#about" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section><!-- End Hero -->
@@ -118,8 +101,8 @@
             <div class="content">
               <h3>Why Choose Clinic ?</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+                Doctors Clinic is a primary care clinic which is first of its kind in the country, keeping that in mind Doctors Clinic is undergoing transformation from the conventional practice model to a patient-centered medical home and to become more innovative enabling healthcare deliverance as much convenient optimized and coordinated as possible.
+
               </p>
               <div class="text-center">
                 <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
@@ -132,22 +115,22 @@
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-receipt"></i>
-                    <h4>Corporis voluptates sit</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                    <h4>Family Medicine</h4>
+                    <p>We provide comprehensive health care for the individual and family across all ages, genders, diseases, and parts of the body.</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-cube-alt"></i>
-                    <h4>Ullamco laboris ladore pan</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                    <h4>Psychology</h4>
+                    <p>We offer a wide range of diagnostic, treatment and consultation services to help you with the psychological issues you may be facing.</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-images"></i>
-                    <h4>Labore consequatur</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                    <h4>Laboratory</h4>
+                    <p>We provide wide range of tests based on specimens from the body (such as blood or urine) that are used to diagnose & treat patients.</p>
                   </div>
                 </div>
               </div>
@@ -168,25 +151,25 @@
           </div>
 
           <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
-            <h3>Enim quis est voluptatibus aliquid consequatur fugiat</h3>
-            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+            <h3>Choose the best for your health</h3>
+            <p>To create a primary care practice model which actually serves both the health care providers as well as health care consumers in the most efficient convenient and cost effective manners.</p>
 
             <div class="icon-box">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <h4 class="title"><a href="">Quality Consultation</a></h4>
+              <p class="description">Quality consultation in a clinic refers to the provision of comprehensive and professional healthcare services that prioritize the well-being and satisfaction of patients. It involves the expertise of skilled medical professionals who offer accurate diagnoses, personalized treatment plans, and clear communication to address patients' health concerns effectively. </p>
             </div>
 
             <div class="icon-box">
               <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <h4 class="title"><a href="">Affordable Prices</a></h4>
+              <p class="description">Affordable prices in a clinic refer to the provision of healthcare services at reasonable and cost-effective rates. It means that the clinic strives to offer accessible and affordable healthcare options to patients without compromising on the quality of care.</p>
             </div>
 
             <div class="icon-box">
               <div class="icon"><i class="bx bx-atom"></i></div>
-              <h4 class="title"><a href="">Dine Pad</a></h4>
-              <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+              <h4 class="title"><a href="">Quality Doctors</a></h4>
+              <p class="description">Quality doctors in a clinic refer to highly skilled and competent medical professionals who possess extensive knowledge, expertise, and experience in their respective fields. These doctors have completed rigorous education and training, and they continually update their skills to stay abreast of the latest advancements in medicine. </p>
             </div>
 
           </div>
@@ -200,11 +183,19 @@
       <div class="container">
 
         <div class="row">
+          <?php
+          $doctor_count = (int) $this->db->query("SELECT COUNT(*) AS doctor_count FROM doctor")->row_array()['doctor_count'];
+
+          $dep_count = (int) $this->db->query("SELECT COUNT(*) AS dep_count FROM department")->row_array()['dep_count'];
+          $lab_count = (int) $this->db->query("SELECT COUNT(*) AS lab_count FROM laboratorist")->row_array()['lab_count'];
+          $phar_count = (int) $this->db->query("SELECT COUNT(*) AS phar_count FROM pharmacist")->row_array()['phar_count'];
+
+          ?>
 
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i class="fas fa-user-md"></i>
-              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $doctor_count; ?>" data-purecounter-duration="1" class="purecounter"></span>
               <p>Doctors</p>
             </div>
           </div>
@@ -212,7 +203,7 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
             <div class="count-box">
               <i class="far fa-hospital"></i>
-              <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $dep_count; ?>" data-purecounter-duration="1" class="purecounter"></span>
               <p>Departments</p>
             </div>
           </div>
@@ -220,16 +211,16 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="fas fa-flask"></i>
-              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $lab_count; ?>" data-purecounter-duration="1" class="purecounter"></span>
               <p>Research Labs</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="fas fa-award"></i>
-              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Awards</p>
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $phar_count; ?>" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Pharmicies</p>
             </div>
           </div>
 

@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
 
 
 
-class Web extends CI_Controller
+class Services extends CI_Controller
 
 {
 
@@ -36,15 +36,10 @@ class Web extends CI_Controller
 
 
     public function index()
-    {
-        $uri = $this->uri->segment(1); // Get the first segment of the URI
-
-        if ($uri === 'login') {
-            redirect('Login', 'refresh');
-        } else {
-
-            
-            $this->load->view("web/index");
-        }
-    }
+	{
+		if ($this->session->userdata('admin_login') != 1)
+			redirect(base_url() . 'index.php?login', 'refresh');
+		if ($this->session->userdata('admin_login') == 1)
+			redirect(base_url() . 'index.php?services/manage_patient', 'refresh');
+	}
 }

@@ -168,6 +168,50 @@ class Admin extends CI_Controller
 		$this->load->view('index', $page_data);
 	}
 
+	// Manage Services
+	function manage_services($param1 = '', $param2 = '', $param3 = '')
+	{
+		if ($this->session->userdata('admin_login') != 1)
+			redirect(base_url() . 'index.php?login', 'refresh');
+
+		if ($param1 == 'create') {
+			$data['service_name']= $this->input->post('service_name');
+			$data['service_des']= $this->input->post('service_des');
+			$this->db->insert('services', $data);
+			// $this->email_model->account_opening_email('doctor', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
+			$this->session->set_flashdata('flash_message', ('Services Opened'));
+
+			redirect(base_url() . 'index.php?admin/manage_services', 'refresh');
+		}
+
+
+		if ($param1 == 'edit' && $param2 == 'do_update') {
+			$data['service_name']= $this->input->post('service_name');
+			$data['service_des']= $this->input->post('service_des');
+			$this->db->where('id', $param3);
+			$this->db->update('services', $data);
+			$this->session->set_flashdata('flash_message', ('Services Updated'));
+
+			redirect(base_url() . 'index.php?admin/manage_services', 'refresh');
+		} else if ($param1 == 'edit') {
+			$page_data['edit_profile'] = $this->db->get_where('services', array(
+				'id' => $param2
+			))->result_array();
+		}
+		if ($param1 == 'delete') {
+			$this->db->where('id', $param2);
+			$this->db->delete('services');
+			$this->session->set_flashdata('flash_message', ('Services Deleted'));
+
+			redirect(base_url() . 'index.php?admin/manage_services', 'refresh');
+		}
+		$page_data['page_name']  = 'manage_services';
+		$page_data['page_title'] = ('Manage Services');
+		$this->db->order_by('id', 'desc');
+		$page_data['services']= $this->db->get('services')->result_array();
+		$this->load->view('index', $page_data);
+	}
+
 	/***Manage patients**/
 	function manage_patient($param1 = '', $param2 = '', $param3 = '')
 	{
