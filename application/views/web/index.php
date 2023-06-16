@@ -218,7 +218,7 @@
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
-            <i class="fa-solid fa-prescription-bottle-medical"></i>
+              <i class="fa-solid fa-prescription-bottle-medical"></i>
               <span data-purecounter-start="0" data-purecounter-end="<?php echo $phar_count; ?>" data-purecounter-duration="1" class="purecounter"></span>
               <p>Pharmicies</p>
             </div>
@@ -241,29 +241,17 @@
         <div class="row">
 
 
-        <?php $services = $this->db->query("Select * from services")->result_array(); 
-        foreach ($services as $key => $value) { ?>
-         <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-              <div class="icon"><i class="fas fa-hospital-user"></i></div>
-              <h4><a href=""><?php echo $value['service_name'];  ?></a></h4>
-              <p><?php echo $value['service_des'];  ?></p>
+          <?php $services = $this->db->query("Select * from services")->result_array();
+          foreach ($services as $key => $value) { ?>
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+              <div class="icon-box">
+                <div class="icon"><i class="fas fa-hospital-user"></i></div>
+                <h4><a href=""><?php echo $value['service_name'];  ?></a></h4>
+                <p><?php echo $value['service_des'];  ?></p>
+              </div>
             </div>
-          </div>
-      <?php  }
-        ?>
-         
-
-
-
-         
-
-          
-
-         
-
-          
-
+          <?php  }
+          ?>
         </div>
 
       </div>
@@ -339,27 +327,17 @@
 
         <div class="section-title">
           <h2>Departments</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>Departments in a clinic refer to specialized divisions or units within the clinic that are dedicated to specific areas of healthcare. These departments are structured to provide focused medical services, diagnostics, and treatments related to particular medical specialties or conditions. The specific departments in a clinic can vary depending on the size, specialization, and scope of services offered. </p>
         </div>
 
         <div class="row gy-4">
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
+              <?php $depart =$this->db->query("Select * from department") ?>
               <li class="nav-item">
                 <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Cardiology</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Neurology</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Hepatology</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatrics</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Eye Care</a>
-              </li>
+             
             </ul>
           </div>
           <div class="col-lg-9">
