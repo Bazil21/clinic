@@ -63,72 +63,24 @@
                 <div class="tab-pane box active" id="edit" style="padding: 5px">
                     <div class="box-content">
                         <?php foreach ($edit_profile as $row) : ?>
-                            <?php echo form_open('admin/manage_services/edit/do_update/' . $row['doctor_id'], array('class' => 'form-horizontal validatable', 'enctype' => 'multipart/form-data')); ?>
+                            <?php echo form_open('admin/manage_services/edit/do_update/' . $row['id'], array('class' => 'form-horizontal validatable', 'enctype' => 'multipart/form-data')); ?>
                             <div class="padded">
                                 <div class="control-group">
-                                    <label class="control-label"><?php echo ('Name'); ?></label>
+                                    <label class="control-label"><?php echo ('Service Name'); ?></label>
                                     <div class="controls">
-                                        <input type="text" class="validate[required]" name="name" value="<?php echo $row['name']; ?>" />
+                                        <input type="text" class="validate[required]" name="service_name" value="<?php echo $row['service_name']; ?>" />
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label"><?php echo ('Email'); ?></label>
+                                    <label class="control-label"><?php echo ('Service Description'); ?></label>
                                     <div class="controls">
-                                        <input type="email" autocomplete="false" class="validate[required]" name="email" value="<?php echo $row['email']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label"><?php echo ('Password'); ?></label>
-                                    <div class="controls">
-                                        <input type="password"  autocomplete="false" readonly onfocus="this.removeAttribute('readonly');"  class="validate[required]" name="password" value="<?php echo $row['password']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label"><?php echo ('Address'); ?></label>
-                                    <div class="controls">
-                                        <input type="text" class="" name="address" value="<?php echo $row['address']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label"><?php echo ('Phone'); ?></label>
-                                    <div class="controls">
-                                        <input type="text" class="" name="phone" value="<?php echo $row['phone']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label"><?php echo ('Department'); ?></label>
-                                    <div class="controls">
-                                        <select name="department_id" class="uniform" style="width:100%;">
-                                            <?php
-                                            $departments = $this->db->get('department')->result_array();
-                                            foreach ($departments as $row2) :
-                                            ?>
-                                                <option value="<?php echo $row2['department_id']; ?>" <?php if ($row['department_id'] == $row2['department_id']) echo 'selected'; ?>>
-                                                    <?php echo $row2['name']; ?>
-                                                </option>
-                                            <?php
-                                            endforeach;
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label"><?php echo ('Profile'); ?></label>
-                                    <div class="controls">
-                                        <input type="text" class="" name="profile" value="<?php echo $row['profile']; ?>" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls" style="text-align: right;">
-                                        <input type="file" class="form-contorl" accept="image/*" name="doctor_img" id="image-upload" />
-                                        <img id="image-container" src="<?php echo  base_url() . "uploads/" . $row['image']; ?>" width="250px" height="350px" />
-                                        <input type="hidden" value="<?php echo $row['image']; ?>" name="old_cat">
+                                        <textarea class="form-control" name="service_des" id="" rows="3"><?php echo $row['service_des']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-actions" style="text-align: center;">
-                                <button type="submit" class="btn btn-primary"><?php echo ('Edit Doctor'); ?></button>
+                                <button type="submit" class="btn btn-primary"><?php echo ('Edit Services'); ?></button>
                             </div>
                             <?php echo form_close(); ?>
                         <?php endforeach; ?>
@@ -150,10 +102,10 @@
                                 <div>#</div>
                             </th>
                             <th style="padding: 5px;">
-                                <div><?php echo ('Doctor Name'); ?></div>
+                                <div><?php echo ('Service Name'); ?></div>
                             </th>
                             <th style="padding: 5px;">
-                                <div><?php echo ('Department'); ?></div>
+                                <div><?php echo ('Service Description'); ?></div>
                             </th>
                             <th style="padding: 5px;">
                                 <div><?php echo ('Options'); ?></div>
@@ -162,16 +114,16 @@
                     </thead>
                     <tbody>
                         <?php $count = 1;
-                        foreach ($doctors as $row) : ?>
+                        foreach ($services as $row) : ?>
                             <tr>
                                 <td><?php echo $count++; ?></td>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $this->crud_model->get_type_name_by_id('department', $row['department_id']); ?></td>
+                                <td><?php echo $row['service_name']; ?></td>
+                                <td><?php echo $row['service_des'] ?></td>
                                 <td align="center">
-                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_services/edit/<?php echo $row['doctor_id']; ?>" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Edit'); ?>" class="btn btn-success">
+                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_services/edit/<?php echo $row['id']; ?>" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Edit'); ?>" class="btn btn-success">
                                         <i class="icon-pencil"></i>
                                     </a>
-                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_services/delete/<?php echo $row['doctor_id']; ?>" onclick="return confirm('delete?')" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete'); ?>" class="btn btn-danger">
+                                    <a href="<?php echo base_url(); ?>index.php?admin/manage_services/delete/<?php echo $row['id']; ?>" onclick="return confirm('delete?')" rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete'); ?>" class="btn btn-danger">
                                         <i class="icon-trash"></i>
                                     </a>
                                 </td>
@@ -189,66 +141,20 @@
                     <?php echo form_open('admin/manage_services/create/', array('class' => 'form-horizontal validatable', 'enctype' => 'multipart/form-data')); ?>
                     <div class="padded">
                         <div class="control-group">
-                            <label class="control-label"><?php echo ('Name'); ?></label>
+                            <label class="control-label"><?php echo ('Service Name'); ?></label>
                             <div class="controls">
-                                <input type="text" class="validate[required]" name="name" />
+                                <input type="text" class="validate[required]" name="service_name" />
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><?php echo ('Email'); ?></label>
+                            <label class="control-label"><?php echo ('Service Description'); ?></label>
                             <div class="controls">
-                                <input type="email" autocomplete="false" class="validate[required]" name="email" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><?php echo ('Password'); ?></label>
-                            <div class="controls">
-                                <input type="password"  autocomplete="false" readonly onfocus="this.removeAttribute('readonly');"  class="validate[required]" name="password" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><?php echo ('Address'); ?></label>
-                            <div class="controls">
-                                <input type="text" class="" name="address" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><?php echo ('Phone'); ?></label>
-                            <div class="controls">
-                                <input type="text" class="" name="phone" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><?php echo ('Department'); ?></label>
-                            <div class="controls">
-                                <select name="department_id" class="uniform" style="width:100%;">
-                                    <?php
-                                    $departments = $this->db->get('department')->result_array();
-                                    foreach ($departments as $row) :
-                                    ?>
-                                        <option value="<?php echo $row['department_id']; ?>"><?php echo $row['name']; ?></option>
-                                    <?php
-                                    endforeach;
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><?php echo ('Profile'); ?></label>
-                            <div class="controls">
-                                <input type="text" class="" name="profile" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="controls" style="text-align: right;">
-                                <input type="file" class="form-contorl" accept="image/*" name="doctor_img" id="image-upload" />
-                                <img id="image-container" src="<?php echo  base_url() . "uploads/" . $row['image']; ?>" width="250px" height="350px" />
-                              
+                              <textarea class="form-control" name="service_des" id="" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-actions" style="text-align: center;">
-                        <button type="submit" class="btn btn-primary"><?php echo ('Add Doctor'); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php echo ('Add Service'); ?></button>
                     </div>
                     <?php echo form_close(); ?>
                 </div>
