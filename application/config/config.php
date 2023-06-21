@@ -19,6 +19,7 @@
 
 $config['base_url']	= 'http://localhost/clinic';
 
+define('SURL','http://localhost/clinic/index.php?');
 /*
 |--------------------------------------------------------------------------
 | Index File

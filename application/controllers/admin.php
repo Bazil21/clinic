@@ -857,9 +857,21 @@ class Admin extends CI_Controller
 		))->result_array();
 		$this->load->view('index', $page_data);
 	}
-	public function add_contact(){
+	public function book_app(){
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		echo "adsasd";
+		$pdata['name'] = $_POST['name'];
+		$pdata['email'] = $_POST['email'];
+		$pdata['password'] = $_POST['password'];
+		$pdata['phone'] = $_POST['phone'];
+		$bdata['datetime'] = $_POST['datetime'];
+		$bdata['doctor_id']  = $_POST['doctor'];
+		$bdata['message']  = $_POST['message'];
+		$this->db->insert('patient', $pdata);
+		$bdata['patient_id'] = $patient_id = $this->db->insert_id();
+
+		$this->db->insert('appointment', $bdata);
+
+		redirect(base_url() . 'index.php?Web', 'refresh');
 		}
 	}
 }

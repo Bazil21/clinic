@@ -25,9 +25,10 @@
   <link href="<?php base_url(); ?>template/frontend/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="<?php base_url(); ?>template/frontend/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="<?php base_url(); ?>template/frontend/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <!-- Template Main CSS File -->
   <link href="<?php base_url(); ?>template/frontend/assets/css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
   <!-- =======================================================
   * Template Name: Clinic 
@@ -235,7 +236,6 @@
 
         <div class="section-title">
           <h2>Services</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
         <div class="row">
@@ -263,60 +263,63 @@
 
         <div class="section-title">
           <h2>Make an Appointment</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
 
-        <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-          <div class="row">
-            <div class="col-md-4 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-              <div class="validate"></div>
-            </div>
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
-              <div class="validate"></div>
-            </div>
-            <div class="col-md-4 form-group mt-3 mt-md-0">
-              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-              <div class="validate"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-group mt-3">
-              <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-              <div class="validate"></div>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-              <select name="department" id="department" class="form-select">
-                <option value="">Select Department</option>
-                <option value="Department 1">Department 1</option>
-                <option value="Department 2">Department 2</option>
-                <option value="Department 3">Department 3</option>
-              </select>
-              <div class="validate"></div>
-            </div>
-            <div class="col-md-4 form-group mt-3">
-              <select name="doctor" id="doctor" class="form-select">
-                <option value="">Select Doctor</option>
-                <option value="Doctor 1">Doctor 1</option>
-                <option value="Doctor 2">Doctor 2</option>
-                <option value="Doctor 3">Doctor 3</option>
-              </select>
-              <div class="validate"></div>
-            </div>
-          </div>
-
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+        <?php echo form_open('admin/book_app', array('class' => 'php-email-form')); ?>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
             <div class="validate"></div>
           </div>
-          <div class="mb-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+            <div class="validate"></div>
           </div>
-          <div class="text-center"><button type="submit">Make an Appointment</button></div>
-        </form>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="password" class="form-control" name="password" id="password" maxlength="8" placeholder="Create Your password" autocomplete="new-password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group mt-3">
+            <div class="input-group datepicker">
+              <input type="text" class="form-control" name="datetime" data-input aria-describedby="date1">
+              <div class="input-group-append" style="display: none;">
+                <button class="btn btn-secondary" type="button" id="date1" title="toggle" data-toggle><i class="icon-angle-down-4 mr-0"></i></button>
+              </div>
+            </div>
+
+            <div class="validate"></div>
+          </div>
+
+          <div class="col-md-3 form-group mt-3">
+            <select name="doctor" id="doctor" class="form-select" >
+              <?php $department = $this->db->query("select * from doctor")->result_array();
+              foreach ($department as $key => $value) { ?>
+                <option value="<?php echo $value['doctor_id']; ?>"><?php echo "Dr ".$value['name'] ?></option>
+              <?php }
+              ?>
+            </select>
+            <div class="validate"></div>
+          </div>
+          
+        </div>
+
+        <div class="form-group mt-3">
+          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+          <div class="validate"></div>
+        </div>
+        <div class="mb-3">
+          <div class="loading">Loading</div>
+          <div class="error-message"></div>
+          <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+        </div>
+        <div class="text-center"><button type="submit">Make an Appointment</button></div>
+        <?php echo form_close(); ?>
 
       </div>
     </section><!-- End Appointment Section -->
@@ -416,8 +419,8 @@
       </div>
 
       <div>
-          <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.6371303114984!2d73.06675467450255!3d31.396567653250123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39225d4b6af719e5%3A0xd3e9c280ae059e59!2sGovernment%20Graduate%20College%20Samanabad%20Faisalabad!5e0!3m2!1sen!2s!4v1687325014709!5m2!1sen!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.6371303114984!2d73.06675467450255!3d31.396567653250123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39225d4b6af719e5%3A0xd3e9c280ae059e59!2sGovernment%20Graduate%20College%20Samanabad%20Faisalabad!5e0!3m2!1sen!2s!4v1687325014709!5m2!1sen!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
       <div class="container">
         <div class="row mt-5">
 
@@ -426,7 +429,7 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>Government  Gradute College  Samnabad, Fasialabad</p>
+                <p>Government Gradute College Samnabad, Fasialabad</p>
               </div>
 
               <div class="email">
@@ -484,8 +487,8 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Clinic</h3>
             <p>
-            Government  Gradute College <br>
-             Samnabad, Fasialabad<br>
+              Government Gradute College <br>
+              Samnabad, Fasialabad<br>
               Pakistan <br><br>
               <strong>Phone:</strong> +92 305 475 8962<br>
               <strong>Email:</strong> info@clinic.com<br>
@@ -534,10 +537,42 @@
   <script src="<?php base_url(); ?>template/frontend/assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="<?php base_url(); ?>template/frontend/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <!-- <script src="<?php base_url(); ?>template/frontend/assets/vendor/php-email-form/validate.js"></script> -->
-
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <!-- Template Main JS File -->
   <script src="<?php base_url(); ?>template/frontend/assets/js/main.js"></script>
+ 
+  <script>
+    jQuery(function() {
+      initDatePicker();
+    });
 
+    checkIfTodaySelected = function(selDate, dateStr, fp) {
+      let today = new Date().toLocaleDateString();
+      let selDateDay = new Date(selDate).toLocaleDateString();
+      if (selDateDay === today) {
+        fp._input.value = "Today"
+      }
+    }
+
+    function initDatePicker() {
+      const fp = jQuery(".datepicker").flatpickr({
+        wrap: true,
+        altInput: true,
+        allowInput: false, // if doesn't need - disable it.
+        altFormat: "F j, Y",
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        defaultDate: "today",
+        onReady: checkIfTodaySelected,
+        onValueUpdate: checkIfTodaySelected
+      });
+
+    }
+  </script>
+
+ 
 </body>
 
 </html>
