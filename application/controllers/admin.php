@@ -857,4 +857,9 @@ class Admin extends CI_Controller
 		))->result_array();
 		$this->load->view('index', $page_data);
 	}
+	public function add_contact(){
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		echo "adsasd";
+		}
+	}
 }
