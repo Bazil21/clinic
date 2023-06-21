@@ -34,7 +34,7 @@
 
 			<div class="tab-pane box active" id="edit" style="padding: 5px">
 
-                <div class="box-content padded">
+                <div class="box-content padded" style="text-align: center;">
 
 					<?php 
 
@@ -44,9 +44,9 @@
 
                         <?php echo form_open('admin/system_settings/'.$row['type'].'/do_update/' , array('class' => 'form-horizontal validatable'));?>                            
 
-                            <div class="control-group">
+                            <div class="control-group" style="display:flex;justify-content:center;">
 
-                                <label class="control-label"><?php echo ($row['type']);?></label>
+                                <label class="control-label" ><?php echo ('<b>'.$row['type'].'</b>');?></label>
 
                                 <div class="controls">
 

@@ -137,8 +137,8 @@
                     <select class="validate[required]" name="login_type">
                         <option value=""><?php echo ('--- Select Account Type ---'); ?></option>
                         <option value="admin"><?php echo ('Admin'); ?></option>
-                        <!-- <option value="doctor"><?php echo ('Doctor'); ?></option>
-                        <option value="patient"><?php echo ('Patient'); ?></option> -->
+                        <option value="doctor"><?php echo ('Doctor'); ?></option>
+                        <option value="patient"><?php echo ('Patient'); ?></option>
                         <!-- <option value="laboratorist"><?php echo ('Laboratorist'); ?></option> -->
                     </select>
                 </div>
