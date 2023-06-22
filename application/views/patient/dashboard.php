@@ -1,6 +1,75 @@
+<style>
+    .action-nav-button {
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+        border-radius: 4px;
+        cursor: pointer;
+
+        color: #fff;
+        /* Set text color */
+    }
+
+    .action-nav-button:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-nav-button a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+
+    .action-nav-button:hover a {
+        color: #f2f2f2;
+    }
+
+    .action-nav-button i {
+        font-size: 24px;
+        margin-bottom: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .action-nav-button:hover i {
+        transform: scale(1.2);
+    }
+
+    .action-nav-button span {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .action-nav-button:hover span {
+        color: #f2f2f2;
+    }
+
+    .action-nav-normal .action-nav-button a {
+        background: none !important;
+        border: none !important;
+        color: white !important;
+    }
+
+    .action-nav-normal .action-nav-button a>i {
+        color: #fff !important;
+    }
+
+    .badge {
+        background-color: #E21818;
+        color: #fff;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        margin-left: 5px;
+        /* Adjust the margin as needed */
+    }
+</style>
+
 <div class="container-fluid padded">
 
-	<div class="row-fluid">
+    <div class="row-fluid">
 
         <div class="span30">
 
@@ -11,79 +80,43 @@
             <div class="action-nav-normal">
 
                 <div class="row-fluid">
+                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
 
-                    <div class="span2 action-nav-button">
+                        <a href="<?php echo base_url(); ?>index.php?patient/view_doctor">
 
-                        <a href="<?php echo base_url();?>index.php?patient/view_doctor">
+                            <i class="icon-credit-card"></i>
 
-                        <i class="icon-stethoscope"></i>
-
-                        <span><?php echo ('Doctor');?></span>
-
+                            <span><?php echo ('Total Doctor'); ?></span>
+                            <span class="badge"><?php echo $this->db->count_all_results('doctor'); ?></span> <!-- Add the badge number here -->
                         </a>
 
                     </div>
 
-                    <div class="span2 action-nav-button">
 
-                        <a href="<?php echo base_url();?>index.php?patient/view_appointment">
+                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
 
-                        <i class="icon-exchange"></i>
+                        <a href="<?php echo base_url(); ?>index.php?patient/view_appointment">
 
-                        <span><?php echo ('Appointment');?></span>
+                            <i class="icon-exchange"></i>
 
+                            <span><?php echo ('View  Appointment'); ?></span>
+                            <span class="badge"><?php
+                                                $patient_id = $this->session->userdata('patient_id');
+                                                $total_App = $this->db->query("Select count(*) as total_App from Appointment where patient_id='$patient_id'")->row_array()['total_App'];
+                                                echo $total_App;
+
+                                                ?>
+
+                            </span> <!-- Add the badge number here -->
                         </a>
 
                     </div>
-
-                    <div class="span2 action-nav-button">
-
-                        <a href="<?php echo base_url();?>index.php?patient/view_prescription">
-
-                        <i class="icon-stethoscope"></i>
-
-                        <span><?php echo ('Prescription');?></span>
-
+                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
+                        <a href="<?php echo base_url(); ?>index.php?patient/view_prescription">
+                            <i class="icon-stethoscope"></i>
+                            <span><?php echo ('View Prescription'); ?></span>
                         </a>
-
                     </div>
-
-                    <div class="span2 action-nav-button">
-
-                        <a href="<?php echo base_url();?>index.php?patient/view_admit_history">
-
-                        <i class="icon-hdd"></i>
-
-                        <span><?php echo ('Admit History');?></span>
-
-                        </a>
-
-                    </div>
-
-                    <div class="span2 action-nav-button">
-
-                        <a href="<?php echo base_url();?>index.php?patient/view_blood_bank">
-
-                        <i class="icon-tint"></i>
-
-                        <span><?php echo ('Blood Bank');?></span>
-
-                        </a>
-
-                    </div>
-
-                    <div class="span2 action-nav-button">
-
-                        <a href="<?php echo base_url();?>index.php?patient/view_invoice">
-
-                        <i class="icon-credit-card"></i>
-
-                        <span><?php echo ('View Invoice');?></span>
-
-                        </a>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -98,9 +131,9 @@
 
     <div class="row-fluid">
 
-    
 
-    	<!-----CALENDAR SCHEDULE STARTS-->
+
+        <!-----CALENDAR SCHEDULE STARTS-->
 
         <div class="span6">
 
@@ -110,7 +143,7 @@
 
                     <div class="title">
 
-                        <i class="icon-calendar"></i> <?php echo ('Calendar Schedule');?>
+                        <i class="icon-calendar"></i> <?php echo ('Calendar Schedule'); ?>
 
                     </div>
 
@@ -128,11 +161,11 @@
 
         </div>
 
-    	<!-----CALENDAR SCHEDULE ENDS-->
+        <!-----CALENDAR SCHEDULE ENDS-->
 
-        
 
-    	<!-----NOTICEBOARD LIST STARTS-->
+
+        <!-----NOTICEBOARD LIST STARTS-->
 
         <div class="span6">
 
@@ -142,7 +175,7 @@
 
                     <span class="title">
 
-                        <i class="icon-reorder"></i> <?php echo ('Noticeboard');?>
+                        <i class="icon-reorder"></i> <?php echo ('Noticeboard'); ?>
 
                     </span>
 
@@ -150,49 +183,49 @@
 
                 <div class="box-content scrollable" style="max-height: 500px; overflow-y: auto">
 
-                
 
-                    <?php 
 
-                    $notices	=	$this->db->get('noticeboard')->result_array();
+                    <?php
 
-                    foreach($notices as $row):
+                    $notices    =    $this->db->get('noticeboard')->result_array();
 
-                    ?>
+                    foreach ($notices as $row) :
 
-                    <div class="box-section news with-icons">
+                        ?>
 
-                        <div class="avatar blue">
+                        <div class="box-section news with-icons">
 
-                            <i class="icon-tag icon-2x"></i>
+                            <div class="avatar blue">
 
-                        </div>
-
-                        <div class="news-time">
-
-                            <span><?php echo date('d',$row['create_timestamp']);?></span> <?php echo date('M',$row['create_timestamp']);?>
-
-                        </div>
-
-                        <div class="news-content">
-
-                            <div class="news-title">
-
-                                <?php echo $row['notice_title'];?>
+                                <i class="icon-tag icon-2x"></i>
 
                             </div>
 
-                            <div class="news-text">
+                            <div class="news-time">
 
-                                 <?php echo $row['notice'];?>
+                                <span><?php echo date('d', $row['create_timestamp']); ?></span> <?php echo date('M', $row['create_timestamp']); ?>
+
+                            </div>
+
+                            <div class="news-content">
+
+                                <div class="news-title">
+
+                                    <?php echo $row['notice_title']; ?>
+
+                                </div>
+
+                                <div class="news-text">
+
+                                    <?php echo $row['notice']; ?>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                    </div>
-
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
 
                 </div>
 
@@ -200,74 +233,10 @@
 
         </div>
 
-    	<!-----NOTICEBOARD LIST ENDS-->
+        <!-----NOTICEBOARD LIST ENDS-->
 
     </div>
 
 </div>
 
 
-
-  
-
-  <script>
-
-  $(document).ready(function() {
-
-
-
-    // page is now ready, initialize the calendar...
-
-
-
-    $("#schedule_calendar").fullCalendar({
-
-            header: {
-
-                left: 	"prev,next",
-
-                center: "title",
-
-                right: 	"month,agendaWeek,agendaDay"
-
-            },
-
-            editable: 0,
-
-            droppable: 0,
-
-            events: [
-
-					<?php 
-
-                    $appointments	=	$this->db->get_where('appointment' , array('patient_id' => $this->session->userdata('patient_id')))->result_array();
-
-                    foreach($appointments as $row):
-
-                    ?>
-
-					{
-
-						title: "<?php echo ('Appointment').' : '.$this->crud_model->get_type_name_by_id('doctor' ,$row['doctor_id'], 'name' );?>",
-
-						start: new Date(<?php echo date('Y',$row['appointment_timestamp']);?>, <?php echo date('m',$row['appointment_timestamp'])-1;?>, <?php echo date('d',$row['appointment_timestamp']);?>),
-
-						end:	new Date(<?php echo date('Y',$row['appointment_timestamp']);?>, <?php echo date('m',$row['appointment_timestamp'])-1;?>, <?php echo date('d',$row['appointment_timestamp']);?>)  
-
-            		},
-
-					<?php
-
-					endforeach;
-
-					?>
-
-					]
-
-        })
-
-
-
-});
-
-  </script>

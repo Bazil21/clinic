@@ -870,7 +870,7 @@ class Admin extends CI_Controller
 		$bdata['patient_id'] = $patient_id = $this->db->insert_id();
 
 		$this->db->insert('appointment', $bdata);
-
+		$this->session->set_flashdata('flash_message', ('Department Opened'));
 		redirect(base_url() . 'index.php?Web', 'refresh');
 		}
 	}

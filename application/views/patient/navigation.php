@@ -1,3 +1,22 @@
+
+<style>
+	.primary-sidebar .nav>li {
+		background-color: #306681 !important;
+	}
+
+	.primary-sidebar .nav>li a:before {
+		background-color: #fff !important;
+	}
+
+	.primary-sidebar .nav>li .glow {
+		background: #95898B !important;
+	}
+
+	.sidebar-background .primary-sidebar-background {
+		background-color: #306681 !important;
+	}
+</style>
+
 <div class="sidebar-background">
 
 	<div class="primary-sidebar-background">
@@ -6,7 +25,7 @@
 
 </div>
 
-<div class="primary-sidebar">
+<div class="primary-sidebar" style="background-color: #306681 !important;">
 
 	<!-- Main nav -->
 
