@@ -80,11 +80,11 @@
             <div class="action-nav-normal">
 
                 <div class="row-fluid">
-                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
+                    <div class="span3 action-nav-button" style="background-color: #0A6EBD;">
 
                         <a href="<?php echo base_url(); ?>index.php?patient/view_doctor">
 
-                            <i class="icon-credit-card"></i>
+                            <i class=" icon-user-md"></i>
 
                             <span><?php echo ('Total Doctor'); ?></span>
                             <span class="badge"><?php echo $this->db->count_all_results('doctor'); ?></span> <!-- Add the badge number here -->
@@ -93,11 +93,11 @@
                     </div>
 
 
-                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
+                    <div class="span3 action-nav-button" style="background-color: #FFA41B;">
 
                         <a href="<?php echo base_url(); ?>index.php?patient/view_appointment">
 
-                            <i class="icon-exchange"></i>
+                            <i class="icon-calendar"></i>
 
                             <span><?php echo ('View  Appointment'); ?></span>
                             <span class="badge"><?php
@@ -111,10 +111,16 @@
                         </a>
 
                     </div>
-                    <div class="span2 action-nav-button" style="background-color: #643A6B;">
+                    <div class="span3 action-nav-button" style="background-color: #17594A;">
                         <a href="<?php echo base_url(); ?>index.php?patient/view_prescription">
-                            <i class="icon-stethoscope"></i>
+                            <i class="icon-file"></i>
                             <span><?php echo ('View Prescription'); ?></span>
+                        </a>
+                    </div>
+                    <div class="span3 action-nav-button" style="background-color: #7E1717;">
+                        <a href="<?php echo base_url(); ?>index.php?patient/view_prescription">
+                            <i class=" icon-medkit"></i>
+                            <span><?php echo ('View Lab Reports'); ?></span>
                         </a>
                     </div>
                 </div>
@@ -135,31 +141,7 @@
 
         <!-----CALENDAR SCHEDULE STARTS-->
 
-        <div class="span6">
 
-            <div class="box">
-
-                <div class="box-header">
-
-                    <div class="title">
-
-                        <i class="icon-calendar"></i> <?php echo ('Calendar Schedule'); ?>
-
-                    </div>
-
-                </div>
-
-                <div class="box-content">
-
-                    <div id="schedule_calendar">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
 
         <!-----CALENDAR SCHEDULE ENDS-->
 
@@ -167,7 +149,7 @@
 
         <!-----NOTICEBOARD LIST STARTS-->
 
-        <div class="span6">
+        <div>
 
             <div class="box">
 
@@ -238,5 +220,3 @@
     </div>
 
 </div>
-
-
