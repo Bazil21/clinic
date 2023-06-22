@@ -1,3 +1,17 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #0A4D68;
+        color: #ffff;
+        font-weight: 400;
+		font-size: 14px;
+    }
+    .control-label{
+        font-weight: 500;
+        padding: 2px;
+    }
+</style>
+
+
 <div class="box">
 
 	<div class="box-header">
@@ -62,7 +76,7 @@
 
                             <td><?php echo $count++;?></td>
 
-                            <td><?php echo date('d M,Y', $row['appointment_timestamp']);?></td>
+                            <td><?php echo date('d M,Y', $row['datetime']);?></td>
 
 							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
 

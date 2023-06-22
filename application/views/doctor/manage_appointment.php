@@ -1,3 +1,30 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #0081C9;
+        color: #ffff;
+        font-weight: 400;
+		font-size: 14px;
+    }
+   
+    .control-group {
+        display: flex;
+        justify-content: center;
+    }
+    .control-label{
+        font-weight: 500;
+        padding: 5px;
+        font-size: 13px;
+    }
+    input {
+        padding: 3px !important;    
+    }
+    .selector {
+        width: 210px !important;
+    }
+</style>
+
+
+
 <div class="box">
 
 	<div class="box-header">
@@ -124,7 +151,7 @@
 
                         </div>
 
-                        <div class="form-actions">
+                        <div class="form-actions" style="text-align: center;">
 
                             <button type="submit" class="btn btn-primary"><?php echo ('Edit Appointment');?></button>
 
@@ -290,7 +317,7 @@
 
                         </div>
 
-                        <div class="form-actions">
+                        <div class="form-actions" style="text-align: center;">
 
                             <button type="submit" class="btn btn-success"><?php echo ('Add Appointment');?></button>
 

@@ -1,3 +1,23 @@
+
+<style>
+	.primary-sidebar .nav>li {
+		background-color: #306681 !important;
+	}
+
+	.primary-sidebar .nav>li a:before {
+		background-color: #fff !important;
+	}
+
+	.primary-sidebar .nav>li .glow {
+		background: #95898B !important;
+	}
+
+	.sidebar-background .primary-sidebar-background {
+		background-color: #306681 !important;
+	}
+</style>
+
+
 <div class="sidebar-background">
 
 	<div class="primary-sidebar-background">
@@ -6,7 +26,7 @@
 
 </div>
 
-<div class="primary-sidebar">
+<div class="primary-sidebar" style="background-color: #306681 !important;">
 
 	<!-- Main nav -->
 
@@ -100,42 +120,7 @@
 
 		</li>
 
-        
-
-        <!------bed allotment----->
-
-		<li class="<?php if($page_name == 'manage_bed_allotment')echo 'dark-nav active';?>">
-
-			<span class="glow"></span>
-
-				<a href="<?php echo base_url();?>index.php?doctor/manage_bed_allotment" >
-
-					<i class="icon-hdd icon-2x"></i>
-
-					<span><?php echo ('Bed Allotment');?></span>
-
-				</a>
-
-		</li>
-
-        
-
-        <!------blood bank----->
-
-		<li class="<?php if($page_name == 'view_blood_bank')echo 'dark-nav active';?>">
-
-			<span class="glow"></span>
-
-				<a href="<?php echo base_url();?>index.php?doctor/view_blood_bank" >
-
-					<i class="icon-tint icon-2x"></i>
-
-					<span><?php echo ('View Blood Bank');?></span>
-
-				</a>
-
-		</li>
-
+     
 
 
 		

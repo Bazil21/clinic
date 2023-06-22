@@ -111,7 +111,6 @@ class Doctor extends CI_Controller
 
 			$this->db->insert('patient', $data);
 
-			$this->email_model->account_opening_email('patient', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 
@@ -404,90 +403,6 @@ class Doctor extends CI_Controller
 	
 
 	
-
-	/******ALLOT / DISCHARGE BED TO PATIENTS*****/
-
-	function manage_bed_allotment($param1 = '', $param2 = '', $param3 = '')
-
-	{
-
-		if ($this->session->userdata('doctor_login') != 1)
-
-			redirect(base_url() . 'index.php?login', 'refresh');
-
-		
-
-		//create a new allotment only in available / unalloted beds. beds can be ward,cabin,icu,other types
-
-		if ($param1 == 'create') {
-
-			$data['bed_id']              = $this->input->post('bed_id');
-
-			$data['patient_id']          = $this->input->post('patient_id');
-
-			$data['allotment_timestamp'] = $this->input->post('allotment_timestamp');
-
-			$data['discharge_timestamp'] = $this->input->post('discharge_timestamp');
-
-			$this->db->insert('bed_allotment', $data);
-
-			$this->session->set_flashdata('flash_message', ('Bed Alloted'));
-
-			redirect(base_url() . 'index.php?doctor/manage_bed_allotment', 'refresh');
-
-		}
-
-		if ($param1 == 'edit' && $param2 == 'do_update') {
-
-			$data['bed_id']              = $this->input->post('bed_id');
-
-			$data['patient_id']          = $this->input->post('patient_id');
-
-			$data['allotment_timestamp'] = $this->input->post('allotment_timestamp');
-
-			$data['discharge_timestamp'] = $this->input->post('discharge_timestamp');
-
-			$this->db->where('bed_allotment_id', $param3);
-
-			$this->db->update('bed_allotment', $data);
-
-			$this->session->set_flashdata('flash_message', ('Bed Allotment Updated'));
-
-			redirect(base_url() . 'index.php?doctor/manage_bed_allotment', 'refresh');
-
-			
-
-		} else if ($param1 == 'edit') {
-
-			$page_data['edit_profile'] = $this->db->get_where('bed_allotment', array(
-
-				'bed_allotment_id' => $param2
-
-			))->result_array();
-
-		}
-
-		if ($param1 == 'delete') {
-
-			$this->db->where('bed_allotment_id', $param2);
-
-			$this->db->delete('bed_allotment');
-
-			$this->session->set_flashdata('flash_message', ('Bed Allotment Deleted'));
-
-			redirect(base_url() . 'index.php?doctor/manage_bed_allotment', 'refresh');
-
-		}
-
-		$page_data['page_name']     = 'manage_bed_allotment';
-
-		$page_data['page_title']    = ('Manage Bed Allotment');
-
-		$page_data['bed_allotment'] = $this->db->get('bed_allotment')->result_array();
-
-		$this->load->view('index', $page_data);
-
-	}
 
 	
 
