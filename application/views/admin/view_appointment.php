@@ -45,13 +45,14 @@
 					</a></li>
 
 			<?php endif; ?>
-			<li class="<?php if(!isset($edit_profile))echo 'active';?>">
+			<li class="<?php if (!isset($edit_profile)) echo 'active'; ?>">
 
 				<a href="#list" data-toggle="tab"><i class="icon-align-justify"></i>
 
 					<?php echo ('View Appointment'); ?>
 
-				</a></li>
+				</a>
+			</li>
 			<li>
 
 				<a href="#add" data-toggle="tab"><i class="icon-plus"></i>
@@ -92,9 +93,17 @@
 
 									<div class="controls" style="padding-top:6px;">
 
-										<?php echo $this->crud_model->get_type_name_by_id('doctor', $this->session->userdata('doctor_id'), 'name'); ?>
+										<select class="chzn-select" name="doctor_id" id="">
+											<?php $doctors = $this->db->query("Select * from doctor")->result_array();
+											foreach ($doctors as $key => $value) {
+												$selected = ($value['doctor_id'] == $row['doctor_id']) ? "selected" : "";
 
-										<input type="hidden" name="doctor_id" value="<?php echo $this->session->userdata('doctor_id'); ?>" />
+												?>
+												<option value="<?php echo $value['doctor_id'] ?>" <?php echo  $selected; ?>><?php echo $value['name'] ?></option>
+											<?php }
+											?>
+
+										</select>
 
 									</div>
 
@@ -135,11 +144,8 @@
 								</div>
 
 								<div class="control-group">
-
 									<label class="control-label"><?php echo ('Date'); ?></label>
-
 									<div class="controls">
-
 										<input type="text" class="datepicker fill-up" name="appointment_timestamp" value="<?php echo date('m/d/Y', $row['appointment_timestamp']); ?>" />
 
 									</div>
@@ -148,10 +154,8 @@
 
 							</div>
 
-							<div class="form-actions">
-
+							<div class="form-actions" style="text-align: center;">
 								<button type="submit" class="btn btn-primary"><?php echo ('Edit Appointment'); ?></button>
-
 							</div>
 
 							<?php echo form_close(); ?>
@@ -164,7 +168,7 @@
 
 			<?php endif; ?>
 
-			<div class="tab-pane box <?php if(!isset($edit_profile))echo 'active';?>" id="list">
+			<div class="tab-pane box <?php if (!isset($edit_profile)) echo 'active'; ?>" id="list">
 
 
 
@@ -260,13 +264,21 @@
 
 							<div class="controls" style="padding-top:6px;">
 
-								<?php echo $this->crud_model->get_type_name_by_id('doctor', $this->session->userdata('doctor_id'), 'name'); ?>
+								<select class="chzn-select" name="doctor_id" id="">
+									<?php $doctors = $this->db->query("Select * from doctor")->result_array();
+									foreach ($doctors as $key => $value) {
 
-								<input type="hidden" name="doctor_id" value="<?php echo $this->session->userdata('doctor_id'); ?>" />
+										?>
+										<option value="<?php echo $value['doctor_id'] ?>"><?php echo $value['name'] ?></option>
+									<?php }
+									?>
+
+								</select>
 
 							</div>
 
 						</div>
+
 
 						<div class="control-group">
 
@@ -314,7 +326,7 @@
 
 					</div>
 
-					<div class="form-actions">
+					<div class="form-actions" style="text-align: center;">
 
 						<button type="submit" class="btn btn-success"><?php echo ('Add Appointment'); ?></button>
 

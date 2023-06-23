@@ -470,7 +470,7 @@ class Admin extends CI_Controller
 
 			$this->session->set_flashdata('flash_message', ('Appointment Created'));
 
-			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
 
 		}
 
@@ -488,7 +488,7 @@ class Admin extends CI_Controller
 
 			$this->session->set_flashdata('flash_message', ('Appointment Updated'));
 
-			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
 
 			
 
@@ -510,7 +510,7 @@ class Admin extends CI_Controller
 
 			$this->session->set_flashdata('flash_message', ('Appointment Deleted'));
 
-			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
 
 		}
 
