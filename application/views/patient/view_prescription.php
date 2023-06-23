@@ -195,14 +195,14 @@
                                 <?php echo form_close(); ?>
 
 
-                                <?php echo form_open('patient/nearby_pharmacy', array('class' => 'form-horizontal validatable')); ?>
+                                <?php echo form_open('patient/nearby_pharmacy', array('class' => 'form-horizontal validatable','target' => '_blank')); ?>
 
                                     <div class="form-actions" style="text-align: center;">
 
                                         <button type="submit" class="btn btn-primary"><?php echo ('Search Nearby Pharmacy'); ?></button>
 
                                     </div>
-                                    <?php echo form_close(); ?>
+                                <?php echo form_close(); ?>
 
                                     <!---------DIAGNOSIS REPORTS----------->
 
