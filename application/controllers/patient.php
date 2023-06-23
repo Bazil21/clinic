@@ -101,16 +101,15 @@ class Patient extends CI_Controller
 	function nearby_pharmacy()
 
 	{
-		echo "adaaddasda";
-		exit;
+		
 		if ($this->session->userdata('patient_login') != 1) {
 			redirect(base_url() . 'index.php?login', 'refresh');
 		}
-		$page_data['page_name']     = 'nearby_pharmacy';
+		$page_data['edit_profile']     = 'nearby_pharmacy';
 
 		$page_data['page_title']    = ('Nearby Pharmacy');
 
-		$this->load->view('nearby_pharmacy', $page_data);
+		$this->load->view('patient/nearby_pharmacy');
 	}
 
 	/***MANAGE PRESCRIPTIONS******/
