@@ -240,7 +240,7 @@
 
 					<a href="<?php echo base_url(); ?>index.php?admin/view_appointment">
 
-						<i class="icon-exchange"></i> <?php echo ('View Appointment'); ?>
+						<i class="icon-exchange"></i> <?php echo ('Manage Appointment'); ?>
 
 					</a>
 
