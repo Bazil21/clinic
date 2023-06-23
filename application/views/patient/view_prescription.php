@@ -174,7 +174,6 @@
 
                                     <td><div>#</div></td>
 
-                                    <td><div><?php echo ('Report Type');?></div></td>
 
                                     <td><div><?php echo ('Document Type');?></div></td>
 
@@ -204,7 +203,6 @@
 
                                     <td><?php echo $count++;?></td>
 
-                                    <td><?php echo $row2['report_type'];?></td>
 
                                     <td><?php echo $row2['document_type'];?></td>
 

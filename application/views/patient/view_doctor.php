@@ -1,3 +1,18 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #0A4D68;
+        color: #ffff;
+        font-weight: 400;
+		font-size: 14px;
+    }
+    .control-label{
+        font-weight: 500;
+        padding: 2px;
+    }
+</style>
+
+
+
 <div class="box">
 
 	<div class="box-header">
