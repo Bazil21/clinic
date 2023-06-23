@@ -14,9 +14,9 @@ class laboratorist extends CI_Controller
 
 {
 
-	
 
-	
+
+
 
 	function __construct()
 
@@ -35,10 +35,9 @@ class laboratorist extends CI_Controller
 		$this->output->set_header('Pragma: no-cache');
 
 		$this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-
 	}
 
-	
+
 
 	/***Default function, redirects to login page if no admin logged in yet***/
 
@@ -53,10 +52,9 @@ class laboratorist extends CI_Controller
 		if ($this->session->userdata('laboratorist_login') == 1)
 
 			redirect(base_url() . 'index.php?laboratorist/dashboard', 'refresh');
-
 	}
 
-	
+
 
 	/***laboratorist DASHBOARD***/
 
@@ -73,16 +71,51 @@ class laboratorist extends CI_Controller
 		$page_data['page_title'] = ('Laboratorist Dashboard');
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
 
-	
 
-	
 
-	
+
+
+	function manage_test($param1 = '', $param2 = '', $param3 = '')
+	{
+		if ($this->session->userdata('laboratorist_login') != 1)
+			redirect(base_url() . 'index.php?login', 'refresh');
+
+		if ($param1 == 'create') {
+			$data['name']        = $this->input->post('name');
+			$data['description'] = $this->input->post('description');
+			$data['test_id'] = $this->input->post('test_id');
+
+			$this->db->insert('test_coding', $data);
+			$this->session->set_flashdata('flash_message', ('Test Added'));
+			redirect(base_url() . 'index.php?laboratorist/manage_test', 'refresh');
+		}
+		if ($param1 == 'edit' && $param2 == 'do_update') {
+			$data['name']        = $this->input->post('name');
+			$data['description'] = $this->input->post('description');
+			$this->db->where('id', $param3);
+			$this->db->update('test_coding', $data);
+			$this->session->set_flashdata('flash_message', ('Test Updated'));
+			redirect(base_url() . 'index.php?laboratorist/manage_test', 'refresh');
+		} else if ($param1 == 'edit') {
+			$page_data['edit_profile'] = $this->db->get_where('test_coding', array(
+				'id' => $param2
+			))->result_array();
+		}
+		if ($param1 == 'delete') {
+			$this->db->where('id', $param2);
+			$this->db->delete('test_coding');
+			$this->session->set_flashdata('flash_message', ('Department Deleted'));
+			redirect(base_url() . 'index.php?laboratorist/manage_test', 'refresh');
+		}
+		$page_data['page_name']   = 'manage_test';
+		$page_data['page_title']  = ('Add Test');
+		$page_data['departments'] = $this->db->get('test_coding')->result_array();
+		$this->load->view('index', $page_data);
+	}
+
 
 	/***MANAGE PRESCRIPTIONS******/
 
@@ -94,7 +127,7 @@ class laboratorist extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']           = 'view_prescription';
 
@@ -109,10 +142,9 @@ class laboratorist extends CI_Controller
 		$page_data['prescriptions']       = $this->db->get('prescription')->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/***MANAGE PRESCRIPTIONS*(UPLOAD/DELETE) DIAGNOSIS REPORTS OF A CERTAIN PRESCRIPTION*****/
 
@@ -124,7 +156,7 @@ class laboratorist extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-			
+
 
 		if ($param1 == 'create_diagnosis_report') {
 
@@ -136,6 +168,8 @@ class laboratorist extends CI_Controller
 
 			$data['description']     = $this->input->post('description');
 
+
+
 			$data['timestamp']       = strtotime(date('Y-m-d') . ' ' . date('H:i:s'));
 
 			$data['laboratorist_id'] = $this->session->userdata('laboratorist_id');
@@ -144,17 +178,16 @@ class laboratorist extends CI_Controller
 
 			$data['file_name'] = $_FILES["userfile"]["name"];
 
-			
+
 
 			$this->db->insert('diagnosis_report', $data);
 
 			$this->session->set_flashdata('flash_message', ('Diagnosis Report Created'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_prescription/edit/' . $this->input->post('prescription_id'), 'refresh');
-
 		}
 
-		
+
 
 		if ($param1 == 'delete_diagnosis_report') {
 
@@ -165,9 +198,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Diagnosis Report Deleted'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_prescription/edit/' . $param3, 'refresh');
-
-			
-
 		} else if ($param1 == 'edit') {
 
 			$page_data['edit_profile'] = $this->db->get_where('prescription', array(
@@ -175,22 +205,24 @@ class laboratorist extends CI_Controller
 				'prescription_id' => $param2
 
 			))->result_array();
-
 		}
 
 		$page_data['page_name']     = 'manage_prescription';
 
 		$page_data['page_title']    = ('Manage Prescription');
 
-		$page_data['prescriptions'] = $this->db->get('prescription')->result_array();
+		$whereCondition = array('lab_id' =>  $this->session->userdata('laboratorist_id'));
+		$page_data['prescriptions'] = $this->db->get_where('prescription', $whereCondition)->result_array();
+
+
+
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
 
-	
+
+
 
 	/*******WATCH AND MANAGE STATUS OF BLOOD GROUPS AND THEIR AVAILABLE AMOUNT OF BAGS********/
 
@@ -202,7 +234,7 @@ class laboratorist extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		if ($param1 == 'edit' && $param2 == 'do_update') {
 
@@ -215,9 +247,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Blood Status Updated'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_blood_bank', 'refresh');
-
-			
-
 		} else if ($param1 == 'edit') {
 
 			$page_data['edit_profile'] = $this->db->get_where('blood_bank', array(
@@ -225,7 +254,6 @@ class laboratorist extends CI_Controller
 				'blood_group_id' => $param2
 
 			))->result_array();
-
 		}
 
 		$page_data['page_name']  = 'manage_blood_bank';
@@ -235,10 +263,9 @@ class laboratorist extends CI_Controller
 		$page_data['blood_bank'] = $this->db->get('blood_bank')->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******MANAGE BLOOD DONORS*****/
 
@@ -250,7 +277,7 @@ class laboratorist extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		//create a new allotment only in available / unalloted beds. beds can be ward,cabin,icu,other types
 
@@ -277,7 +304,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Account Opened'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_blood_donor', 'refresh');
-
 		}
 
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -305,9 +331,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Account Updated'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_blood_donor', 'refresh');
-
-			
-
 		} else if ($param1 == 'edit') {
 
 			$page_data['edit_profile'] = $this->db->get_where('blood_donor', array(
@@ -315,7 +338,6 @@ class laboratorist extends CI_Controller
 				'blood_donor_id' => $param2
 
 			))->result_array();
-
 		}
 
 		if ($param1 == 'delete') {
@@ -327,7 +349,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Account Deleted'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_blood_donor', 'refresh');
-
 		}
 
 		$page_data['page_name']    = 'manage_blood_donor';
@@ -337,18 +358,17 @@ class laboratorist extends CI_Controller
 		$page_data['blood_donors'] = $this->db->get('blood_donor')->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
 
-	
 
-	
 
-	
 
-	
+
+
+
+
+
 
 	/******MANAGE OWN PROFILE AND CHANGE PASSWORD***/
 
@@ -360,7 +380,7 @@ class laboratorist extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-			
+
 
 		if ($param1 == 'update_profile_info') {
 
@@ -372,7 +392,7 @@ class laboratorist extends CI_Controller
 
 			$data['phone']   = $this->input->post('phone');
 
-			
+
 
 			$this->db->where('laboratorist_id', $this->session->userdata('laboratorist_id'));
 
@@ -381,7 +401,6 @@ class laboratorist extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Profile Updated'));
 
 			redirect(base_url() . 'index.php?laboratorist/manage_profile/', 'refresh');
-
 		}
 
 		if ($param1 == 'change_password') {
@@ -392,7 +411,7 @@ class laboratorist extends CI_Controller
 
 			$data['confirm_new_password'] = $this->input->post('confirm_new_password');
 
-			
+
 
 			$current_password = $this->db->get_where('laboratorist', array(
 
@@ -411,15 +430,12 @@ class laboratorist extends CI_Controller
 				));
 
 				$this->session->set_flashdata('flash_message', ('Password Updated'));
-
 			} else {
 
 				$this->session->set_flashdata('flash_message', ('Password Mismatch'));
-
 			}
 
 			redirect(base_url() . 'index.php?laboratorist/manage_profile/', 'refresh');
-
 		}
 
 		$page_data['page_name']    = 'manage_profile';
@@ -433,7 +449,5 @@ class laboratorist extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
-
 }

@@ -125,21 +125,6 @@
 
 		
 
-		<!------manage report--->
-
-		<li class="<?php if($page_name == 'manage_report')echo 'dark-nav active';?>">
-
-			<span class="glow"></span>
-
-				<a href="<?php echo base_url();?>index.php?doctor/manage_report" >
-
-					<i class="icon-hospital icon-2x"></i>
-
-					<span><?php echo ('Manage Report');?></span>
-
-				</a>
-
-		</li>
 
 
 

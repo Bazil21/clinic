@@ -302,7 +302,9 @@ class Doctor extends CI_Controller
 
 			$data['description']                = $this->input->post('description');
 
-			
+			$selectedTests = $this->input->post('test_id');
+			$testIds = implode(',', $selectedTests);
+			$data['test_ids'] = $testIds;
 
 			$this->db->insert('prescription', $data);
 
@@ -323,12 +325,18 @@ class Doctor extends CI_Controller
 			$data['case_history']               = $this->input->post('case_history');
 
 			$data['medication']                 = $this->input->post('medication');
+			$data['pharm_id']                 = $this->input->post('pharm_id');
+			$data['lab_id']                 = $this->input->post('lab_id');
 
+
+			
 			$data['medication_from_pharmacist'] = $this->input->post('medication_from_pharmacist');
 
 			$data['description']                = $this->input->post('description');
 
-			
+			$selectedTests = $this->input->post('test_id');
+			$testIds = implode(',', $selectedTests);
+			$data['test_ids'] = $testIds;
 
 			$this->db->where('prescription_id', $param3);
 

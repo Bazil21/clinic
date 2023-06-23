@@ -1,3 +1,31 @@
+<style>
+    table.dataTable thead tr th {
+        background-color: #0081C9;
+        color: #ffff;
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    .control-group {
+        display: flex;
+        justify-content: center;
+    }
+
+    .control-label {
+        font-weight: 500;
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    input {
+        padding: 3px !important;
+    }
+
+    .selector {
+        width: 210px !important;
+    }
+</style>	
+
 <div class="box">
 
 	<div class="box-header">
@@ -16,29 +44,8 @@
 
                     	</a></li>
 
-			<li>
-
-            	<a href="#birth" data-toggle="tab"><i class="icon-align-justify"></i> 
-
-					<?php echo ('Birth');?>
-
-                    	</a></li>
-
-			<li>
-
-            	<a href="#death" data-toggle="tab"><i class="icon-align-justify"></i> 
-
-					<?php echo ('Death');?>
-
-                    	</a></li>
-
-			<li>
-
-            	<a href="#other" data-toggle="tab"><i class="icon-align-justify"></i> 
-
-					<?php echo ('Other');?>
-
-                    	</a></li>
+			
+		
 
 			<li>
 
@@ -62,7 +69,10 @@
 
             <!----OPERATION LISTING STARTS--->
 
-            <div class="tab-pane box active" id="operation">
+            
+          
+
+            <div class="tab-pane active box" id="operation">
 
 				
 
@@ -95,234 +105,6 @@
 						$count = 1;
 
 						$birth_reports	=	$this->db->get_where('report' , array('type'=>'operation'))->result_array();
-
-						foreach($birth_reports as $row):?>
-
-                        <tr>
-
-                            <td><?php echo $count++;?></td>
-
-                            <td><?php echo $row['description'];?></td>
-
-                            <td><?php echo date('d M,Y', $row['timestamp']);?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('patient',$row['patient_id'],'name');?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
-
-							<td align="center">
-
-                            	<a href="<?php echo base_url();?>index.php?doctor/manage_report/delete/<?php echo $row['report_id'];?>" onclick="return confirm('delete?')"
-
-                                	rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete');?>" class="btn btn-danger">
-
-                                		<i class="icon-trash"></i>
-
-                                </a>
-
-        					</td>
-
-                        </tr>
-
-                        <?php endforeach;?>
-
-                    </tbody>
-
-                </table>
-
-			</div>
-
-            <!----OPERATION LISTING ENDS--->
-
-            
-
-            <!----BIRTH LISTING STARTS--->
-
-            <div class="tab-pane box" id="birth">
-
-				
-
-                <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
-
-                	<thead>
-
-                		<tr>
-
-                    		<th><div>#</div></th>
-
-                    		<th><div><?php echo ('Description');?></div></th>
-
-                    		<th><div><?php echo ('Date');?></div></th>
-
-                    		<th><div><?php echo ('Patient');?></div></th>
-
-                    		<th><div><?php echo ('Doctor');?></div></th>
-
-                    		<th><div><?php echo ('Options');?></div></th>
-
-						</tr>
-
-					</thead>
-
-                    <tbody>
-
-                    	<?php 
-
-						$count = 1;
-
-						$birth_reports	=	$this->db->get_where('report' , array('type'=>'birth'))->result_array();
-
-						foreach($birth_reports as $row):?>
-
-                        <tr>
-
-                            <td><?php echo $count++;?></td>
-
-                            <td><?php echo $row['description'];?></td>
-
-                            <td><?php echo date('d M,Y', $row['timestamp']);?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('patient',$row['patient_id'],'name');?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
-
-							<td align="center">
-
-                            	<a href="<?php echo base_url();?>index.php?doctor/manage_report/delete/<?php echo $row['report_id'];?>" onclick="return confirm('delete?')"
-
-                                	rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete');?>" class="btn btn-danger">
-
-                                		<i class="icon-trash"></i>
-
-                                </a>
-
-        					</td>
-
-                        </tr>
-
-                        <?php endforeach;?>
-
-                    </tbody>
-
-                </table>
-
-			</div>
-
-            <!----BIRTH LISTING ENDS--->
-
-            
-
-            <!----DEATH LISTING STARTS--->
-
-            <div class="tab-pane box" id="death">
-
-				
-
-                <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
-
-                	<thead>
-
-                		<tr>
-
-                    		<th><div>#</div></th>
-
-                    		<th><div><?php echo ('Description');?></div></th>
-
-                    		<th><div><?php echo ('Date');?></div></th>
-
-                    		<th><div><?php echo ('Patient');?></div></th>
-
-                    		<th><div><?php echo ('Doctor');?></div></th>
-
-                    		<th><div><?php echo ('Options');?></div></th>
-
-						</tr>
-
-					</thead>
-
-                    <tbody>
-
-                    	<?php 
-
-						$count = 1;
-
-						$birth_reports	=	$this->db->get_where('report' , array('type'=>'death'))->result_array();
-
-						foreach($birth_reports as $row):?>
-
-                        <tr>
-
-                            <td><?php echo $count++;?></td>
-
-                            <td><?php echo $row['description'];?></td>
-
-                            <td><?php echo date('d M,Y', $row['timestamp']);?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('patient',$row['patient_id'],'name');?></td>
-
-							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
-
-							<td align="center">
-
-                            	<a href="<?php echo base_url();?>index.php?doctor/manage_report/delete/<?php echo $row['report_id'];?>" onclick="return confirm('delete?')"
-
-                                	rel="tooltip" data-placement="top" data-original-title="<?php echo ('Delete');?>" class="btn btn-danger">
-
-                                		<i class="icon-trash"></i>
-
-                                </a>
-
-        					</td>
-
-                        </tr>
-
-                        <?php endforeach;?>
-
-                    </tbody>
-
-                </table>
-
-			</div>
-
-            <!----DEATH LISTING ENDS--->
-
-            
-
-            <!----OTHER LISTING STARTS--->
-
-            <div class="tab-pane box" id="other">
-
-				
-
-                <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
-
-                	<thead>
-
-                		<tr>
-
-                    		<th><div>#</div></th>
-
-                    		<th><div><?php echo ('Description');?></div></th>
-
-                    		<th><div><?php echo ('Date');?></div></th>
-
-                    		<th><div><?php echo ('Patient');?></div></th>
-
-                    		<th><div><?php echo ('Doctor');?></div></th>
-
-                    		<th><div><?php echo ('Options');?></div></th>
-
-						</tr>
-
-					</thead>
-
-                    <tbody>
-
-                    	<?php 
-
-						$count = 1;
-
-						$birth_reports	=	$this->db->get_where('report' , array('type'=>'other'))->result_array();
 
 						foreach($birth_reports as $row):?>
 

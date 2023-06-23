@@ -1,3 +1,21 @@
+<style>
+	.primary-sidebar .nav>li {
+		background-color: #306681 !important;
+	}
+
+	.primary-sidebar .nav>li a:before {
+		background-color: #fff !important;
+	}
+
+	.primary-sidebar .nav>li .glow {
+		background: #95898B !important;
+	}
+
+	.sidebar-background .primary-sidebar-background {
+		background-color: #306681 !important;
+	}
+</style>
+
 <div class="sidebar-background">
 
 	<div class="primary-sidebar-background">
@@ -6,122 +24,103 @@
 
 </div>
 
-<div class="primary-sidebar">
+<div class="primary-sidebar" style="background-color: #306681 !important;">
 
 	<!-- Main nav -->
 
-    <br />
+	<br />
 
-    <div style="text-align:center;">
+	<div style="text-align:center;">
 
-    	<a href="<?php echo base_url();?>">
+		<a href="<?php echo base_url(); ?>">
 
-        	<img src="<?php echo base_url();?>uploads/hmslg.png"  style="max-height:100px; max-width:100px;"/>
+			<img src="<?php echo base_url(); ?>uploads/hmslg.png" style="max-height:100px; max-width:100px;" />
 
-        </a>
+		</a>
 
-    </div>
+	</div>
 
-   	<br />
+	<br />
 
 	<ul class="nav nav-collapse collapse nav-collapse-primary">
 
-    
 
-        
 
-        <!------dashboard----->
 
-		<li class="<?php if($page_name == 'dashboard')echo 'dark-nav active';?>">
 
-			<span class="glow"></span>
+		<!------dashboard----->
 
-				<a href="<?php echo base_url();?>index.php?laboratorist/dashboard" >
-
-					<i class="icon-desktop icon-2x"></i>
-
-					<span><?php echo ('Dashboard');?></span>
-
-				</a>
-
-		</li>
-
-        
-
-        <!------add diagnosis report to prescription----->
-
-		<li class="<?php if($page_name == 'manage_prescription')echo 'dark-nav active';?>">
+		<li class="<?php if ($page_name == 'dashboard') echo 'dark-nav active'; ?>">
 
 			<span class="glow"></span>
 
-				<a href="<?php echo base_url();?>index.php?laboratorist/manage_prescription" >
+			<a href="<?php echo base_url(); ?>index.php?laboratorist/dashboard">
 
-					<i class="icon-stethoscope icon-2x"></i>
+				<i class="icon-desktop icon-2x"></i>
 
-					<span><?php echo ('Add Diagnosis Report');?></span>
+				<span><?php echo ('Dashboard'); ?></span>
 
-				</a>
+			</a>
 
 		</li>
 
-        
-
-        <!------manage blood bank----->
-
-		<li class="<?php if($page_name == 'manage_blood_bank')echo 'dark-nav active';?>">
+		<li class="<?php if ($page_name == 'manage_test') echo 'dark-nav active'; ?>">
 
 			<span class="glow"></span>
 
-				<a href="<?php echo base_url();?>index.php?laboratorist/manage_blood_bank" >
+			<a href="<?php echo base_url(); ?>index.php?laboratorist/manage_test">
 
-					<i class="icon-tint icon-2x"></i>
+				<i class="icon-stethoscope icon-2x"></i>
 
-					<span><?php echo ('Manage Blood Bank');?></span>
+				<span><?php echo ('Add Test'); ?></span>
 
-				</a>
+			</a>
 
 		</li>
 
-        
+		<!------add diagnosis report to prescription----->
 
-        <!------medicine blood donor----->
-
-		<li class="<?php if($page_name == 'manage_blood_donor')echo 'dark-nav active';?>">
+		<li class="<?php if ($page_name == 'manage_prescription') echo 'dark-nav active'; ?>">
 
 			<span class="glow"></span>
 
-				<a href="<?php echo base_url();?>index.php?laboratorist/manage_blood_donor" >
+			<a href="<?php echo base_url(); ?>index.php?laboratorist/manage_prescription">
 
-					<i class="icon-user icon-2x"></i>
+				<i class="icon-stethoscope icon-2x"></i>
 
-					<span><?php echo ('Manage Blood Donor');?></span>
+				<span><?php echo ('Add Diagnosis Report'); ?></span>
 
-				</a>
+			</a>
 
 		</li>
 
-        
+
+
+
+
+
+
 
 		<!------manage own profile--->
 
-		<li class="<?php if($page_name == 'manage_profile')echo 'dark-nav active';?>">
+		<li class="<?php if ($page_name == 'manage_profile') echo 'dark-nav active'; ?>">
 
 			<span class="glow"></span>
 
-				<a href="<?php echo base_url();?>index.php?laboratorist/manage_profile" >
+			<a href="<?php echo base_url(); ?>index.php?laboratorist/manage_profile">
 
-					<i class="icon-lock icon-2x"></i>
+				<i class="icon-lock icon-2x"></i>
 
-					<span><?php echo ('Profile');?></span>
+				<span><?php echo ('Profile'); ?></span>
 
-				</a>
+			</a>
 
 		</li>
 
-		
+
 
 	</ul>
 
-	
+
 
 </div>

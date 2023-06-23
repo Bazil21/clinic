@@ -139,7 +139,7 @@
                         <option value="admin"><?php echo ('Admin'); ?></option>
                         <option value="doctor"><?php echo ('Doctor'); ?></option>
                         <option value="patient"><?php echo ('Patient'); ?></option>
-                        <!-- <option value="laboratorist"><?php echo ('Laboratorist'); ?></option> -->
+                        <option value="laboratorist"><?php echo ('Laboratorist'); ?></option>
                     </select>
                 </div>
                 <div class="form-group">
