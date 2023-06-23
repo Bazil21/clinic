@@ -195,7 +195,7 @@
                                 <?php echo form_close(); ?>
 
 
-                                <form method="post" action="<?php echo base_url(); ?>index.php?patient/nearby_pharmacy/" class="form-horizontal validatable">
+                                <form method="post" action="<?php echo base_url(); ?>index.php?patient/nearby_pharmacy" class="form-horizontal validatable">
 
                                     <div class="form-actions" style="text-align: center;">
 

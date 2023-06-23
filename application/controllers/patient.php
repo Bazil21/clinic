@@ -10,9 +10,9 @@ class Patient extends CI_Controller
 
 {
 
-	
 
-	
+
+
 
 	function __construct()
 
@@ -31,10 +31,9 @@ class Patient extends CI_Controller
 		$this->output->set_header('Pragma: no-cache');
 
 		$this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-
 	}
 
-	
+
 
 	/***Default function, redirects to login page if no admin logged in yet***/
 
@@ -49,10 +48,9 @@ class Patient extends CI_Controller
 		if ($this->session->userdata('patient_login') == 1)
 
 			redirect(base_url() . 'index.php?patient/dashboard', 'refresh');
-
 	}
 
-	
+
 
 	/***patient DASHBOARD***/
 
@@ -64,17 +62,16 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-			
+
 
 		$page_data['page_name']  = 'dashboard';
 
 		$page_data['page_title'] = ('Patient Dashboard');
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/***VIEW APPOINTMENTS******/
 
@@ -86,7 +83,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']    = 'view_appointment';
 
@@ -99,21 +96,21 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
 	function nearby_pharmacy()
 
 	{
-
-		if ($this->session->userdata('patient_login') != 1){
+		echo "adaaddasda";
+		exit;
+		if ($this->session->userdata('patient_login') != 1) {
 			redirect(base_url() . 'index.php?login', 'refresh');
 		}
-			$page_data['page_name']     = 'nearby_pharmacy';
+		$page_data['page_name']     = 'nearby_pharmacy';
 
-			$page_data['page_title']    = ('Nearby Pharmacy');
-	
-			$this->load->view('nearby_pharmacy', $page_data);
+		$page_data['page_title']    = ('Nearby Pharmacy');
+
+		$this->load->view('nearby_pharmacy', $page_data);
 	}
 
 	/***MANAGE PRESCRIPTIONS******/
@@ -126,7 +123,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		if ($param1 == 'edit') {
 
@@ -135,7 +132,6 @@ class Patient extends CI_Controller
 				'prescription_id' => $param2
 
 			))->result_array();
-
 		}
 
 		$page_data['page_name']     = 'view_prescription';
@@ -149,10 +145,9 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******VIEW DOCTOR LIST*****/
 
@@ -164,7 +159,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']  = 'view_doctor';
 
@@ -172,13 +167,12 @@ class Patient extends CI_Controller
 
 		$page_data['doctors']    = $this->db->get('doctor')->result_array();
 
-		
+
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******VIEW ADMIT HISTORY*****/
 
@@ -190,7 +184,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']      = 'view_admit_history';
 
@@ -203,10 +197,9 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******VIEW BLOOD BANK*****/
 
@@ -218,7 +211,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']    = 'view_blood_bank';
 
@@ -229,10 +222,9 @@ class Patient extends CI_Controller
 		$page_data['blood_bank']   = $this->db->get('blood_bank')->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******MANAGE BILLING/ MAKE PAYMENT*****/
 
@@ -258,7 +250,7 @@ class Patient extends CI_Controller
 
 			))->row();
 
-			
+
 
 			/****TRANSFERRING USER TO PAYPAL TERMINAL****/
 
@@ -280,7 +272,7 @@ class Patient extends CI_Controller
 
 			$this->paypal->add_field('return', base_url() . 'index.php?patient/view_invoice/paypal_success');
 
-			
+
 
 			$this->paypal->submit_paypal_post();
 
@@ -299,7 +291,6 @@ class Patient extends CI_Controller
 					$value = urlencode(stripslashes($value));
 
 					$ipn_response .= "\n$key=$value";
-
 				}
 
 				$invoice_id     = $_POST['custom'];
@@ -310,7 +301,7 @@ class Patient extends CI_Controller
 
 				$this->db->update('invoice', $data);
 
-				
+
 
 				$data2['transaction_id'] = rand(10000, 100000);
 
@@ -326,12 +317,10 @@ class Patient extends CI_Controller
 
 				$data2['timestamp']      = strtotime(date("m/d/Y"));
 
-				
+
 
 				$this->db->insert('payment', $data2);
-
 			}
-
 		}
 
 		if ($param1 == 'paypal_cancel') {
@@ -339,7 +328,6 @@ class Patient extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Payment Cancelled'));
 
 			redirect(base_url() . 'index.php?patient/view_invoice/', 'refresh');
-
 		}
 
 		if ($param1 == 'paypal_success') {
@@ -347,10 +335,9 @@ class Patient extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Payment Successfull'));
 
 			redirect(base_url() . 'index.php?patient/view_invoice/', 'refresh');
-
 		}
 
-		
+
 
 		$page_data['page_name']  = 'view_invoice';
 
@@ -363,10 +350,9 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******VIEW COMPLETED PAYMENT HISTORY*****/
 
@@ -378,7 +364,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']  = 'payment_history';
 
@@ -391,10 +377,9 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
+
 
 	/******VIEW OPERATION HISTORY*****/
 
@@ -406,7 +391,7 @@ class Patient extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		$page_data['page_name']  = 'view_operation_history';
 
@@ -421,12 +406,11 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
-	
 
-	
+
+
 
 	/******MANAGE OWN PROFILE AND CHANGE PASSWORD***/
 
@@ -456,7 +440,7 @@ class Patient extends CI_Controller
 
 			$data['blood_group'] = $this->input->post('blood_group');
 
-			
+
 
 			$this->db->where('patient_id', $this->session->userdata('patient_id'));
 
@@ -465,7 +449,6 @@ class Patient extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Profile Updated'));
 
 			redirect(base_url() . 'index.php?patient/manage_profile/', 'refresh');
-
 		}
 
 		if ($param1 == 'change_password') {
@@ -476,7 +459,7 @@ class Patient extends CI_Controller
 
 			$data['confirm_new_password'] = $this->input->post('confirm_new_password');
 
-			
+
 
 			$current_password = $this->db->get_where('patient', array(
 
@@ -495,15 +478,12 @@ class Patient extends CI_Controller
 				));
 
 				$this->session->set_flashdata('flash_message', ('Password Updated'));
-
 			} else {
 
 				$this->session->set_flashdata('flash_message', ('Password Mismatch'));
-
 			}
 
 			redirect(base_url() . 'index.php?patient/manage_profile/', 'refresh');
-
 		}
 
 		$page_data['page_name']    = 'manage_profile';
@@ -517,7 +497,5 @@ class Patient extends CI_Controller
 		))->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
-
 }
