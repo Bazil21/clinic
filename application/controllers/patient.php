@@ -102,9 +102,19 @@ class Patient extends CI_Controller
 
 	}
 
-	
+	function nearby_pharmacy()
 
+	{
+
+		if ($this->session->userdata('patient_login') != 1){
+			redirect(base_url() . 'index.php?login', 'refresh');
+		}
+			$page_data['page_name']     = 'nearby_pharmacy';
+
+			$page_data['page_title']    = ('Nearby Pharmacy');
 	
+			$this->load->view('nearby_pharmacy', $page_data);
+	}
 
 	/***MANAGE PRESCRIPTIONS******/
 

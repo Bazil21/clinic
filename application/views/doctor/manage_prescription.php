@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="control-group">
 
-                                    <label class="control-label"><?php echo ('Recommended Parhmacy'); ?></label>
+                                    <label class="control-label"><?php echo ('Recommended Pharmacy'); ?></label>
 
                                     <div class="controls">
 

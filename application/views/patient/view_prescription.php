@@ -3,334 +3,398 @@
         background-color: #0A4D68;
         color: #ffff;
         font-weight: 400;
-		font-size: 14px;
+        font-size: 14px;
     }
-    .control-label{
-        font-weight: 500;
+
+    .control-label {
+        font-weight: 800;
         padding: 2px;
+    }
+
+
+    .controls {
+        text-align: center;
+    }
+
+    .form-horizontal .control-label {
+        width: none;
     }
 </style>
 
 
 <div class="box">
 
-	<div class="box-header">
+    <div class="box-header">
 
-    
 
-    	<!------CONTROL TABS START------->
 
-		<ul class="nav nav-tabs nav-tabs-left">
+        <!------CONTROL TABS START------->
 
-        	<?php if(isset($edit_profile)):?>
+        <ul class="nav nav-tabs nav-tabs-left">
 
-			<li class="active">
+            <?php if (isset($edit_profile)) : ?>
 
-            	<a href="#edit" data-toggle="tab"><i class="icon-wrench"></i> 
+                <li class="active">
 
-					<?php echo ('Edit Prescription');?>
+                    <a href="#edit" data-toggle="tab"><i class="icon-wrench"></i>
 
-                    	</a></li>
+                        <?php echo ('View Prescription'); ?>
 
-            <?php endif;?>
+                    </a></li>
 
-			<li class="<?php if(!isset($edit_profile))echo 'active';?>">
+            <?php endif; ?>
 
-            	<a href="#list" data-toggle="tab"><i class="icon-align-justify"></i> 
+            <li class="<?php if (!isset($edit_profile)) echo 'active'; ?>">
 
-					<?php echo ('Prescription List');?>
+                <a href="#list" data-toggle="tab"><i class="icon-align-justify"></i>
 
-                    	</a></li>
+                    <?php echo ('Prescription List'); ?>
 
-		</ul>
+                </a></li>
 
-    	<!------CONTROL TABS END------->
+        </ul>
 
-        
+        <!------CONTROL TABS END------->
 
-	</div>
 
-	<div class="box-content padded">
 
-		<div class="tab-content">
+    </div>
 
-        	<!----EDITING FORM STARTS---->
+    <div class="box-content padded">
 
-        	<?php if(isset($edit_profile)):?>
+        <div class="tab-content">
 
-			<div class="tab-pane box active" id="edit" style="padding: 5px">
+            <!----EDITING FORM STARTS---->
 
-                <div class="box-content">
+            <?php if (isset($edit_profile)) : ?>
 
-                	<?php foreach($edit_profile as $row):?>
-
-                    <form method="post" action="<?php echo base_url();?>index.php?doctor/manage_prescription/edit/do_update/<?php echo $row['prescription_id'];?>" class="form-horizontal validatable">
-
-                        <div class="padded">
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Doctor');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Patient');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $this->crud_model->get_type_name_by_id('patient',$row['patient_id'],'name');?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Case History');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $row['case_history'];?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Medication');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $row['medication'];?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Medication from Pharmacist');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $row['medication_from_pharmacist'];?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Description');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo $row['description'];?>
-
-                                </div>
-
-                            </div>
-
-                            <div class="control-group">
-
-                                <label class="control-label"><?php echo ('Date');?></label>
-
-                                <div class="controls" style="padding-top:5px;">
-
-                                    <?php echo date('m/d/Y', $row['creation_timestamp']);?>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    <?php echo form_close();?>
-
-                    <!---------DIAGNOSIS REPORTS----------->
-
-                    <hr />
-
-                    <div class="box">
-
-                    <div class="box-header"><span class="title"><?php echo ('Diagnosis Report');?></span></div>
+                <div class="tab-pane box active" id="edit" style="padding: 5px">
 
                     <div class="box-content">
 
-                    	<table cellpadding="0" cellspacing="0" border="0" class="table table-normal ">
+                        <?php foreach ($edit_profile as $row) : ?>
 
-                            <thead>
+                            <form method="post" action="<?php echo base_url(); ?>index.php?doctor/manage_prescription/edit/do_update/<?php echo $row['prescription_id']; ?>" class="form-horizontal validatable">
 
-                                <tr>
+                                <div class="padded">
 
-                                    <td><div>#</div></td>
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Doctor'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $this->crud_model->get_type_name_by_id('doctor', $row['doctor_id'], 'name'); ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Patient'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $this->crud_model->get_type_name_by_id('patient', $row['patient_id'], 'name'); ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Case History'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $row['case_history']; ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Medication'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $row['medication']; ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Medication from Pharmacist'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $row['medication_from_pharmacist']; ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Description'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo $row['description']; ?>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Date'); ?></label>
+
+                                        <div class="controls" style="padding-top:5px;">
+
+                                            <?php echo date('m/d/Y', $row['creation_timestamp']); ?>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="control-group">
+
+                                        <label class="control-label"><?php echo ('Recommended Pharmacy'); ?></label>
+
+                                        <div class="controls">
+
+                                            <?php $pharm = $this->db->query("Select * From pharmacist where pharmacist_id='{$row['pharm_id']}'")->row_array();
+                                            echo $pharm['name'];
+                                            ?>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><?php echo ('Lab Test'); ?></label>
+                                        <div class="controls">
+                                            <?php
+                                            $testIds = explode(',', $row['test_ids']);
+                                            $testNames = array();
+                                            foreach ($testIds as $testId) {
+                                                $test = $this->db->get_where('test_coding', array('id' => $testId))->row();
+                                                if ($test) {
+                                                    $testNames[] = $test->name;
+                                                }
+                                            }
+                                            echo implode(', ', $testNames);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php echo form_close(); ?>
 
 
-                                    <td><div><?php echo ('Document Type');?></div></td>
+                                <form method="post" action="<?php echo base_url(); ?>index.php?patient/nearby_pharmacy/" class="form-horizontal validatable">
 
-                                    <td><div><?php echo ('Download');?></div></td>
+                                    <div class="form-actions" style="text-align: center;">
 
-                                    <td><div><?php echo ('Description');?></div></td>
+                                        <button type="submit" class="btn btn-primary"><?php echo ('Search Nearby Pharmacy'); ?></button>
 
-                                    <td><div><?php echo ('Date');?></div></td>
+                                    </div>
+                                    <?php echo form_close(); ?>
 
-                                    <td><div><?php echo ('Laboratorist');?></div></td>
+                                    <!---------DIAGNOSIS REPORTS----------->
 
-                                </tr>
+                                    <hr />
 
-                            </thead>
+                                    <div class="box">
 
-                            <tbody>
+                                        <div class="box-header"><span class="title"><?php echo ('Diagnosis Report'); ?></span></div>
 
-                                <?php 
+                                        <div class="box-content">
 
-                                $count = 1;
+                                            <table cellpadding="0" cellspacing="0" border="0" class="table table-normal ">
 
-                                $diagnostic_reports	=	$this->db->get_where('diagnosis_report' , array('prescription_id' => $row['prescription_id']))->result_array();
+                                                <thead>
 
-                                foreach($diagnostic_reports as $row2):?>
+                                                    <tr>
 
-                                <tr>
+                                                        <td>
+                                                            <div>#</div>
+                                                        </td>
 
-                                    <td><?php echo $count++;?></td>
+
+                                                        <td>
+                                                            <div><?php echo ('Document Type'); ?></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div><?php echo ('Download'); ?></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div><?php echo ('Description'); ?></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div><?php echo ('Date'); ?></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div><?php echo ('Laboratorist'); ?></div>
+                                                        </td>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <?php
+
+                                                    $count = 1;
+
+                                                    $diagnostic_reports    =    $this->db->get_where('diagnosis_report', array('prescription_id' => $row['prescription_id']))->result_array();
+
+                                                    foreach ($diagnostic_reports as $row2) : ?>
+
+                                                        <tr>
+
+                                                            <td><?php echo $count++; ?></td>
 
 
-                                    <td><?php echo $row2['document_type'];?></td>
+                                                            <td><?php echo $row2['document_type']; ?></td>
 
-                                    <td style="text-align:center;">
+                                                            <td style="text-align:center;">
 
-                                    	<?php if($row2['document_type'] == 'image'):?>
+                                                                <?php if ($row2['document_type'] == 'image') : ?>
 
-                                        <div id="thumbs">
+                                                                    <div id="thumbs">
 
-  											<a href="<?php echo base_url();?>uploads/diagnosis_report/<?php echo $row2['file_name'];?>" 
+                                                                        <a href="<?php echo base_url(); ?>uploads/diagnosis_report/<?php echo $row2['file_name']; ?>" style="background-image:url(<?php echo base_url(); ?>uploads/diagnosis_report/<?php echo $row2['file_name']; ?>)" title="<?php echo $row2['file_name']; ?>">
 
-                                            	style="background-image:url(<?php echo base_url();?>uploads/diagnosis_report/<?php echo $row2['file_name'];?>)" title="<?php echo $row2['file_name'];?>">
+                                                                        </a></div>
 
-                                                	</a></div>
+                                                                <?php endif; ?>
 
- 										<?php endif;?>
 
-                                                    
 
-										<a href="<?php echo base_url();?>uploads/diagnosis_report/<?php echo $row2['file_name'];?>" target="_blank"
+                                                                <a href="<?php echo base_url(); ?>uploads/diagnosis_report/<?php echo $row2['file_name']; ?>" target="_blank" class="btn btn-danger"> <i class="icon-download-alt"></i> <?php echo ('Download'); ?></a>
 
-                                        	class="btn btn-danger">	<i class="icon-download-alt"></i> <?php echo ('Download');?></a>
+                                                            </td>
 
-                                    </td>
+                                                            <td><?php echo $row2['description']; ?></td>
 
-                                    <td><?php echo $row2['description'];?></td>
+                                                            <td><?php echo date('d M,Y', $row2['timestamp']); ?></td>
 
-                                    <td><?php echo date('d M,Y', $row2['timestamp']);?></td>
+                                                            <td><?php echo $this->crud_model->get_type_name_by_id('laboratorist', $row2['laboratorist_id'], 'name'); ?></td>
 
-                                    <td><?php echo $this->crud_model->get_type_name_by_id('laboratorist',$row2['laboratorist_id'],'name');?></td>
 
-                                    
 
-                                </tr>
+                                                        </tr>
 
-                                <?php endforeach;?>
+                                                    <?php endforeach; ?>
 
-                            </tbody>
+                                                </tbody>
 
-                        </table>
+                                            </table>
 
-                     </div>
+                                        </div>
 
-                     </div> 
+                                    </div>
 
-                    <!-------DIAGNOSIS REPORTS ENDS------->
+                                    <!-------DIAGNOSIS REPORTS ENDS------->
 
-                    <?php endforeach;?>
+                                <?php endforeach; ?>
+
+                    </div>
 
                 </div>
 
-			</div>
-
-            <?php endif;?>
+            <?php endif; ?>
 
             <!----EDITING FORM ENDS--->
 
             <!----TABLE LISTING STARTS--->
 
-            <div class="tab-pane box <?php if(!isset($edit_profile))echo 'active';?>" id="list">
+            <div class="tab-pane box <?php if (!isset($edit_profile)) echo 'active'; ?>" id="list">
 
-				
+
 
                 <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive table-hover">
 
-                	<thead>
-
-                		<tr>
-
-                    		<th><div>#</div></th>
-
-                    		<th><div><?php echo ('Date');?></div></th>
-
-                    		<th><div><?php echo ('Patient');?></div></th>
-
-                    		<th><div><?php echo ('Doctor');?></div></th>
-
-                    		<th><div><?php echo ('Options');?></div></th>
-
-						</tr>
-
-					</thead>
-
-                    <tbody>
-
-                    	<?php $count = 1;foreach($prescriptions as $row):?>
+                    <thead>
 
                         <tr>
 
-                            <td><?php echo $count++;?></td>
+                            <th>
+                                <div>#</div>
+                            </th>
 
-                            <td><?php echo date('d M,Y', $row['creation_timestamp']);?></td>
+                            <th>
+                                <div><?php echo ('Date'); ?></div>
+                            </th>
 
-							<td><?php echo $this->crud_model->get_type_name_by_id('patient',$row['patient_id'],'name');?></td>
+                            <th>
+                                <div><?php echo ('Patient'); ?></div>
+                            </th>
 
-							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
+                            <th>
+                                <div><?php echo ('Doctor'); ?></div>
+                            </th>
 
-							<td align="center">
-
-                            	<a href="<?php echo base_url();?>index.php?patient/view_prescription/edit/<?php echo $row['prescription_id'];?>" class="btn btn-primary">
-
-                                	<?php echo ('View Prescription');?>
-
-                                </a>
-
-        					</td>
+                            <th>
+                                <div><?php echo ('Options'); ?></div>
+                            </th>
 
                         </tr>
 
-                        <?php endforeach;?>
+                    </thead>
+
+                    <tbody>
+
+                        <?php $count = 1;
+                        foreach ($prescriptions as $row) : ?>
+
+                            <tr>
+
+                                <td><?php echo $count++; ?></td>
+
+                                <td><?php echo date('d M,Y', $row['creation_timestamp']); ?></td>
+
+                                <td><?php echo $this->crud_model->get_type_name_by_id('patient', $row['patient_id'], 'name'); ?></td>
+
+                                <td><?php echo $this->crud_model->get_type_name_by_id('doctor', $row['doctor_id'], 'name'); ?></td>
+
+                                <td align="center">
+
+                                    <a href="<?php echo base_url(); ?>index.php?patient/view_prescription/edit/<?php echo $row['prescription_id']; ?>" class="btn btn-primary">
+
+                                        <?php echo ('View Prescription'); ?>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
 
                     </tbody>
 
                 </table>
 
-			</div>
+            </div>
 
             <!----TABLE LISTING ENDS--->
 
-            
 
-            
 
-		</div>
 
-	</div>
+
+        </div>
+
+    </div>
 
 </div>
-
-
-
