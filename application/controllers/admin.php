@@ -449,15 +449,84 @@ class Admin extends CI_Controller
 
 	/*******VIEW APPOINTMENT REPORT	********/
 	function view_appointment($param1 = '', $param2 = '', $param3 = '')
+
 	{
+
 		if ($this->session->userdata('admin_login') != 1)
+
 			redirect(base_url() . 'index.php?login', 'refresh');
 
+		
+
+		if ($param1 == 'create') {
+
+			$data['doctor_id']             = $this->input->post('doctor_id');
+
+			$data['patient_id']            = $this->input->post('patient_id');
+
+			$data['appointment_timestamp'] = strtotime($this->input->post('appointment_timestamp'));
+
+			$this->db->insert('appointment', $data);
+
+			$this->session->set_flashdata('flash_message', ('Appointment Created'));
+
+			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+
+		}
+
+		if ($param1 == 'edit' && $param2 == 'do_update') {
+
+			$data['doctor_id']             = $this->input->post('doctor_id');
+
+			$data['patient_id']            = $this->input->post('patient_id');
+
+			$data['appointment_timestamp'] = strtotime($this->input->post('appointment_timestamp'));
+
+			$this->db->where('appointment_id', $param3);
+
+			$this->db->update('appointment', $data);
+
+			$this->session->set_flashdata('flash_message', ('Appointment Updated'));
+
+			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+
+			
+
+		} else if ($param1 == 'edit') {
+
+			$page_data['edit_profile'] = $this->db->get_where('appointment', array(
+
+				'appointment_id' => $param2
+
+			))->result_array();
+
+		}
+
+		if ($param1 == 'delete') {
+
+			$this->db->where('appointment_id', $param2);
+
+			$this->db->delete('appointment');
+
+			$this->session->set_flashdata('flash_message', ('Appointment Deleted'));
+
+			redirect(base_url() . 'index.php?doctor/view_appointment', 'refresh');
+
+		}
+
 		$page_data['page_name']    = 'view_appointment';
-		$page_data['page_title']   = ('View Appointment');
-		$page_data['appointments'] = $this->db->get('appointment')->result_array();
+
+		$page_data['page_title']   = ('Manage Appointment');
+
+		$page_data['appointment'] = $this->db->get('appointment')->result_array();
+
 		$this->load->view('index', $page_data);
+
 	}
+
+
+
+
 
 	/*******VIEW PAYMENT REPORT	********/
 	function view_payment($param1 = '', $param2 = '', $param3 = '')
