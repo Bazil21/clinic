@@ -932,15 +932,16 @@ class Admin extends CI_Controller
 		$pdata['email'] = $_POST['email'];
 		$pdata['password'] = $_POST['password'];
 		$pdata['phone'] = $_POST['phone'];
-		$bdata['datetime'] = $_POST['datetime'];
+		$bdata['datetime'] = date("Y-m-d h:i:sa");
+		$bdata['appointment_timestamp'] = strtotime($_POST['datetime']);
 		$bdata['doctor_id']  = $_POST['doctor'];
 		$bdata['message']  = $_POST['message'];
 		$this->db->insert('patient', $pdata);
 		$bdata['patient_id'] = $patient_id = $this->db->insert_id();
 
 		$this->db->insert('appointment', $bdata);
-		$this->session->set_flashdata('flash_message', ('Department Opened'));
-		redirect(base_url() . 'index.php?Web', 'refresh');
+		$this->session->set_flashdata('flash_message', ('Your Appointment is Booked! Please Login your Account'));
+		redirect(base_url() . 'index.php?Web');
 		}
 	}
 }

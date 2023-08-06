@@ -37,6 +37,16 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    .flash-message {
+    background-color: #ffffcc;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    text-align: center;
+}
+
+  </style>
 </head>
 
 <body>
@@ -264,6 +274,11 @@
         <div class="section-title">
           <h2>Make an Appointment</h2>
         </div>
+        <?php if ($this->session->flashdata('flash_message')) : ?>
+          <div class="flash-message">
+            <?php echo $this->session->flashdata('flash_message'); ?>
+          </div>
+        <?php endif; ?>
 
         <?php echo form_open('admin/book_app', array('class' => 'php-email-form')); ?>
         <div class="row">
@@ -297,16 +312,16 @@
           </div>
 
           <div class="col-md-3 form-group mt-3">
-            <select name="doctor" id="doctor" class="form-select" >
+            <select name="doctor" id="doctor" class="form-select">
               <?php $department = $this->db->query("select * from doctor")->result_array();
               foreach ($department as $key => $value) { ?>
-                <option value="<?php echo $value['doctor_id']; ?>"><?php echo "Dr ".$value['name'] ?></option>
+                <option value="<?php echo $value['doctor_id']; ?>"><?php echo "Dr " . $value['name'] ?></option>
               <?php }
               ?>
             </select>
             <div class="validate"></div>
           </div>
-          
+
         </div>
 
         <div class="form-group mt-3">
@@ -542,7 +557,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <!-- Template Main JS File -->
   <script src="<?php base_url(); ?>template/frontend/assets/js/main.js"></script>
- 
+
   <script>
     jQuery(function() {
       initDatePicker();
@@ -572,7 +587,7 @@
     }
   </script>
 
- 
+
 </body>
 
 </html>
