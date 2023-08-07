@@ -243,7 +243,7 @@
                                             <option value="">Choose pharmacy</option>
                                             <?php $pharm = $this->db->query("Select * From pharmacist")->result_array();
                                             foreach ($pharm as $key => $value) { ?>
-                                                <option value="<?php echo $value['pharmacist_id'] ?>" <?php if($row['pharm_id'] == $value['pharmacist_id']){?> selected <?php } ?>><?php echo $value['name'];  ?></option>
+                                                <option value="<?php echo $value['pharmacist_id'] ?>" <?php if ($row['pharm_id'] == $value['pharmacist_id']) { ?> selected <?php } ?>><?php echo $value['name'];  ?></option>
                                             <?php }
                                             ?>
                                         </select>
@@ -291,7 +291,7 @@
                                             <option value="">Choose Lab</option>
                                             <?php $pharm = $this->db->query("Select * From laboratorist")->result_array();
                                             foreach ($pharm as $key => $value) { ?>
-                                                <option value="<?php echo $value['laboratorist_id'] ?>" <?php if($row['lab_id'] == $value['laboratorist_id']){?> selected <?php } ?>><?php echo $value['name'];  ?></option>
+                                                <option value="<?php echo $value['laboratorist_id'] ?>" <?php if ($row['lab_id'] == $value['laboratorist_id']) { ?> selected <?php } ?>><?php echo $value['name'];  ?></option>
                                             <?php }
                                             ?>
                                         </select>
@@ -640,7 +640,24 @@
                             </div>
 
                         </div>
+                        <div class="control-group">
 
+                            <label class="control-label"><?php echo ('Recommended Pharmacy'); ?></label>
+
+                            <div class="controls">
+
+                                <select class="chzn-select" name="pharm_id" id="">
+                                    <option value="">Choose pharmacy</option>
+                                    <?php $pharm = $this->db->query("Select * From pharmacist")->result_array();
+                                    foreach ($pharm as $key => $value) { ?>
+                                        <option value="<?php echo $value['pharmacist_id'] ?>" <?php if ($row['pharm_id'] == $value['pharmacist_id']) { ?> selected <?php } ?>><?php echo $value['name'];  ?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+
+                            </div>
+
+                        </div>
                         <div class="control-group">
 
                             <label class="control-label"><?php echo ('Description'); ?></label>
@@ -685,9 +702,26 @@
                                         <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
                                     <?php  }
                                     ?>
+                            </select>
 
                             </div>
-                            </select>
+                        </div>
+                        <div class="control-group">
+
+                            <label class="control-label"><?php echo ('Laboratories'); ?></label>
+
+                            <div class="controls">
+                                <select class="chzn-select" name="lab_id" id="">
+                                    <option value="">Choose Lab</option>
+                                    <?php $pharm = $this->db->query("Select * From laboratorist")->result_array();
+                                    foreach ($pharm as $key => $value) { ?>
+                                        <option value="<?php echo $value['laboratorist_id'] ?>" <?php if ($row['lab_id'] == $value['laboratorist_id']) { ?> selected <?php } ?>><?php echo $value['name'];  ?></option>
+                                    <?php }
+                                    ?>
+                                </select>
+
+                            </div>
+
                         </div>
                     </div>
 

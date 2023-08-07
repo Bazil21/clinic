@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -40,12 +39,11 @@
 
   <style>
     .flash-message {
-    background-color: #ffffcc;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    text-align: center;
-}
-
+      background-color: #ffffcc;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -148,7 +146,6 @@
             </div><!-- End .content-->
           </div>
         </div>
-
       </div>
     </section><!-- End Why Us Section -->
 
@@ -249,8 +246,6 @@
         </div>
 
         <div class="row">
-
-
           <?php $services = $this->db->query("Select * from services")->result_array();
           foreach ($services as $key => $value) { ?>
             <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
@@ -268,76 +263,7 @@
     </section><!-- End Services Section -->
 
     <!-- ======= Appointment Section ======= -->
-    <section id="appointment" class="appointment section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Make an Appointment</h2>
-        </div>
-        <?php if ($this->session->flashdata('flash_message')) : ?>
-          <div class="flash-message">
-            <?php echo $this->session->flashdata('flash_message'); ?>
-          </div>
-        <?php endif; ?>
-
-        <?php echo form_open('admin/book_app', array('class' => 'php-email-form')); ?>
-        <div class="row">
-          <div class="col-md-3 form-group">
-            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-            <div class="validate"></div>
-          </div>
-          <div class="col-md-3 form-group mt-3 mt-md-0">
-            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
-            <div class="validate"></div>
-          </div>
-          <div class="col-md-3 form-group mt-3 mt-md-0">
-            <input type="password" class="form-control" name="password" id="password" maxlength="8" placeholder="Create Your password" autocomplete="new-password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-            <div class="validate"></div>
-          </div>
-          <div class="col-md-3 form-group mt-3 mt-md-0">
-            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-            <div class="validate"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 form-group mt-3">
-            <div class="input-group datepicker">
-              <input type="text" class="form-control" name="datetime" data-input aria-describedby="date1">
-              <div class="input-group-append" style="display: none;">
-                <button class="btn btn-secondary" type="button" id="date1" title="toggle" data-toggle><i class="icon-angle-down-4 mr-0"></i></button>
-              </div>
-            </div>
-
-            <div class="validate"></div>
-          </div>
-
-          <div class="col-md-3 form-group mt-3">
-            <select name="doctor" id="doctor" class="form-select">
-              <?php $department = $this->db->query("select * from doctor")->result_array();
-              foreach ($department as $key => $value) { ?>
-                <option value="<?php echo $value['doctor_id']; ?>"><?php echo "Dr " . $value['name'] ?></option>
-              <?php }
-              ?>
-            </select>
-            <div class="validate"></div>
-          </div>
-
-        </div>
-
-        <div class="form-group mt-3">
-          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
-          <div class="validate"></div>
-        </div>
-        <div class="mb-3">
-          <div class="loading">Loading</div>
-          <div class="error-message"></div>
-          <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
-        </div>
-        <div class="text-center"><button type="submit">Make an Appointment</button></div>
-        <?php echo form_close(); ?>
-
-      </div>
-    </section><!-- End Appointment Section -->
+    
 
     <!-- ======= Departments Section ======= -->
     <section id="departments" class="departments">
@@ -425,7 +351,77 @@
         </div>
       </div>
     </section>
+<section id="appointment" class="appointment section-bg">
+      <div class="container">
 
+        <div class="section-title">
+          <h2>Make an Appointment</h2>
+        </div>
+        <?php if ($this->session->flashdata('flash_message')) : ?>
+          <div class="flash-message">
+            <?php echo $this->session->flashdata('flash_message'); ?>
+          </div>
+        <?php endif; ?>
+
+        <?php echo form_open('admin/book_app', array('class' => 'php-email-form')); ?>
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="password" class="form-control" name="password" id="password" maxlength="8" placeholder="Create Your password" autocomplete="new-password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-3 form-group mt-3 mt-md-0">
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 form-group mt-3">
+            <div class="input-group datepicker">
+              <input type="text" class="form-control" name="datetime" data-input aria-describedby="date1">
+              <div class="input-group-append" style="display: none;">
+                <button class="btn btn-secondary" type="button" id="date1" title="toggle" data-toggle><i class="icon-angle-down-4 mr-0"></i></button>
+              </div>
+            </div>
+
+            <div class="validate"></div>
+          </div>
+
+          <div class="col-md-3 form-group mt-3">
+            <select name="doctor" id="doctor"  class="form-select">
+              <option value="" disabled selected>Choose Doctor</option>
+              <?php $doctor = $this->db->query("select * from doctor")->result_array();
+              foreach ($doctor as $key => $value) { ?>
+                <option value="<?php echo $value['doctor_id']; ?>"><?php echo "Dr " . $value['name'] ?></option>
+              <?php }
+              ?>
+            </select>
+            <div class="validate"></div>
+          </div>
+
+        </div>
+
+        <div class="form-group mt-3">
+          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+          <div class="validate"></div>
+        </div>
+        <div class="mb-3">
+          <div class="loading">Loading</div>
+          <div class="error-message"></div>
+          <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+        </div>
+        <div class="text-center"><button type="submit">Make an Appointment</button></div>
+        <?php echo form_close(); ?>
+
+      </div>
+    </section><!-- End Appointment Section -->
     <section id="contact" class="contact">
       <div class="container">
         <div class="section-title">
@@ -553,11 +549,12 @@
   <script src="<?php base_url(); ?>template/frontend/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <!-- <script src="<?php base_url(); ?>template/frontend/assets/vendor/php-email-form/validate.js"></script> -->
   <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <!-- Template Main JS File -->
   <script src="<?php base_url(); ?>template/frontend/assets/js/main.js"></script>
-
   <script>
     jQuery(function() {
       initDatePicker();
@@ -587,6 +584,17 @@
     }
   </script>
 
+  <script>
+     function check_app() {
+        var doctor = $("#doctor").val();
+
+        // Call the function to get the department name
+        var departmentName = <?php echo json_encode(getDepartmentName('')); ?>;
+
+        // Handle the department name
+        alert("Department: " + departmentName);
+    }
+  </script>
 
 </body>
 

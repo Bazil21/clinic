@@ -301,6 +301,9 @@ class Doctor extends CI_Controller
 			$data['medication_from_pharmacist'] = $this->input->post('medication_from_pharmacist');
 
 			$data['description']                = $this->input->post('description');
+			$data['lab_id']                = $this->input->post('lab_id');
+			$data['pharm_id']                = $this->input->post('pharm_id');
+
 
 			$selectedTests = $this->input->post('test_id');
 			$testIds = implode(',', $selectedTests);

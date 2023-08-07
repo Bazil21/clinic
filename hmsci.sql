@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2023 at 09:07 AM
+-- Generation Time: Aug 07, 2023 at 08:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,7 +65,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `name`, `email`, `password`, `address`, `phone`) VALUES
-(1, 'Test', 'admin@gmail.com', 'asdasd', 'Test Address', '7410696969');
+(1, 'ServingSol', 'admin@gmail.com', 'asdasd', 'Test Address', '7410696969');
 
 -- --------------------------------------------------------
 
@@ -75,117 +75,29 @@ INSERT INTO `admin` (`admin_id`, `name`, `email`, `password`, `address`, `phone`
 
 CREATE TABLE `appointment` (
   `appointment_id` int(11) NOT NULL,
-  `appointment_timestamp` int(11) NOT NULL,
+  `appointment_timestamp` int(11) DEFAULT NULL,
   `doctor_id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL
+  `patient_id` int(11) NOT NULL,
+  `message` text DEFAULT NULL,
+  `datetime` datetime DEFAULT NULL,
+  `app_status` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `appointment`
 --
 
-INSERT INTO `appointment` (`appointment_id`, `appointment_timestamp`, `doctor_id`, `patient_id`) VALUES
-(7, 1651183200, 8, 8),
-(6, 1651096800, 11, 6),
-(5, 1651096800, 8, 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bed`
---
-
-CREATE TABLE `bed` (
-  `bed_id` int(11) NOT NULL,
-  `bed_number` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type` longtext NOT NULL COMMENT 'ward,cabin,ICU',
-  `status` int(11) NOT NULL DEFAULT 0,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `bed`
---
-
-INSERT INTO `bed` (`bed_id`, `bed_number`, `type`, `status`, `description`) VALUES
-(1, 'W1', 'ward', 0, 'Ward Number 1'),
-(2, 'W2', 'ward', 0, 'Ward Number 2'),
-(3, 'ICU1', 'icu', 0, 'ICU 1'),
-(4, 'CB1', 'cabin', 0, 'Cabin Number 1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bed_allotment`
---
-
-CREATE TABLE `bed_allotment` (
-  `bed_allotment_id` int(11) NOT NULL,
-  `bed_id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL,
-  `allotment_timestamp` date NOT NULL,
-  `discharge_timestamp` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `bed_allotment`
---
-
-INSERT INTO `bed_allotment` (`bed_allotment_id`, `bed_id`, `patient_id`, `allotment_timestamp`, `discharge_timestamp`) VALUES
-(7, 2, 6, '2022-04-29', '2022-05-11'),
-(6, 1, 5, '2022-04-28', '2022-05-02');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blood_bank`
---
-
-CREATE TABLE `blood_bank` (
-  `blood_group_id` int(11) NOT NULL,
-  `blood_group` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `status` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `blood_bank`
---
-
-INSERT INTO `blood_bank` (`blood_group_id`, `blood_group`, `status`) VALUES
-(1, 'A+', '55'),
-(2, 'A-', '42'),
-(3, 'B+', '98'),
-(4, 'B-', '63'),
-(5, 'AB+', '47'),
-(6, 'AB-', '65'),
-(7, 'O+', '28'),
-(8, 'O-', '64');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blood_donor`
---
-
-CREATE TABLE `blood_donor` (
-  `blood_donor_id` int(11) NOT NULL,
-  `name` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `blood_group` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `sex` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `age` int(11) NOT NULL,
-  `phone` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `address` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `last_donation_timestamp` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `blood_donor`
---
-
-INSERT INTO `blood_donor` (`blood_donor_id`, `name`, `blood_group`, `sex`, `age`, `phone`, `email`, `address`, `last_donation_timestamp`) VALUES
-(1, 'Dennis Makur', 'A+', 'male', 25, '+23480000000', 'donor@hms.com', 'Abuja, Nigeria', 1413237600),
-(2, 'James Void', 'B-', 'male', 29, '7770000010', 'jamsv@mail.com', '11 Test', 1650924000);
+INSERT INTO `appointment` (`appointment_id`, `appointment_timestamp`, `doctor_id`, `patient_id`, `message`, `datetime`, `app_status`) VALUES
+(7, 1651183200, 2, 4, NULL, NULL, NULL),
+(6, 1651096800, 2, 2, NULL, NULL, 'checked'),
+(11, NULL, 2, 6, 'test', '0000-00-00 00:00:00', NULL),
+(9, NULL, 2, 4, 'test', '2023-06-22 12:20:00', NULL),
+(10, 1687471200, 2, 5, NULL, NULL, NULL),
+(12, 1692050400, 2, 7, 'test', '2023-08-06 05:50:22', NULL),
+(13, 1691359200, 2, 8, 'test', '2023-08-06 06:55:47', NULL),
+(14, 1691359200, 2, 9, 'test', '2023-08-06 06:57:15', NULL),
+(15, 1691359200, 2, 10, 'test test', '2023-08-07 07:45:34', NULL),
+(16, 1691445600, 2, 11, 'test', '2023-08-07 07:51:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -205,28 +117,7 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`department_id`, `name`, `description`) VALUES
 (1, 'Anesthesiology', 'Anesthesiology'),
-(2, 'Bacteriological Laboratory', 'Bacteriological Laboratory'),
-(3, 'Physical Therapy', 'Physical Therapy'),
-(4, 'Plastic Surgery', 'Plastic Surgery'),
-(5, 'Infectious disease doctors', 'Infectious disease doctors specialize in diseases and conditions that are contagious. Includes: influenza, stomach issues, hiv, pneumonia, tuberclosis'),
-(6, 'Dermatologists', 'Dermatologists focus on diseases and conditions of the skin, nails, and hair. They treat conditions such as eczema, skin cancer, acne, and psoriasis.'),
-(7, 'Allergists', 'An allergist or immunologist focuses on preventing and treating allergic diseases and conditions. These usually include various types of allergies and asthma.'),
-(8, 'Ophthalmologists', 'Ophthalmologists specialize in eye and vision care. They treat diseases and conditions of the eyes and can perform eye surgery.'),
-(9, 'Obstetrician/Gynecologists', 'For female health conditions: female reproductive health, cancer prevention and diagnosis in the female reproductive organs, breast care, pregnancy, labor and delivery, infertility, menopause'),
-(10, 'Cardiologists', 'Cardiologists focus on the cardiovascular system, which includes the heart and blood vessels. high blood pressure, high cholesterol, heart attack and stroke'),
-(11, 'Endocrinologists', 'Endocrinologists treat hormone-related conditions such as: diabetes, thyroid conditions, hormone imbalances, infertility, growth problems in children'),
-(12, 'Gastroenterologists', 'Gastroenterologists focus on the digestive system. This includes the esophagus, pancreas, stomach, liver, small intestine, colon, and gallbladder.'),
-(13, 'Nephrologists', 'A nephrologist focuses on kidney care and conditions that affect the kidneys.'),
-(14, 'Urologists', 'Urologists treat conditions of the urinary tract in both males and females.'),
-(15, 'Pulmonologists', 'Pulmonologists focus on the organs involved with breathing. These include the lungs and heart.'),
-(16, 'Otolaryngologists', 'An ENT doctor may treat problems with the sinuses, throat, tonsils, ears, mouth, head, and neck.'),
-(17, 'Neurologists', 'A neurologist treats conditions of the nerves, spine, and brain.'),
-(18, 'Psychiatrists', 'A psychiatrist is a doctor who treats mental health conditions. They may use counseling, medication, or hospitalization as part of their treatment.'),
-(19, 'Oncologists', 'Oncologists treat cancer and its symptoms. During treatment for cancer, a person may have several types of healthcare professional in their care team.'),
-(20, 'Radiologists', 'A radiologist specializes in diagnosing and treating conditions using medical imaging tests. They may read and interpret scans such as X-rays, MRIs, mammograms, ultrasound, and CT scans.'),
-(21, 'General Surgeons', 'General surgeons perform surgical procedures on many organs and bodily systems. '),
-(22, 'Orthopedic Surgeons', 'An orthopedic surgeon specializes in diseases and conditions of the bones, muscles, ligaments, tendons, and joints.'),
-(23, 'Cardiac Surgeons', 'Cardiac surgeons perform heart surgery and may work with a cardiologist to determine what a person needs.');
+(24, 'Test Department', 'Test Description');
 
 -- --------------------------------------------------------
 
@@ -250,7 +141,9 @@ CREATE TABLE `diagnosis_report` (
 --
 
 INSERT INTO `diagnosis_report` (`diagnosis_report_id`, `report_type`, `document_type`, `file_name`, `prescription_id`, `description`, `timestamp`, `laboratorist_id`) VALUES
-(3, 'Test Report', 'image', 'sample_image.jpg', 4, 'This is a demo test', 1651168181, 6);
+(3, 'Test Report', 'image', 'sample_image.jpg', 4, 'This is a demo test', 1651168181, 6),
+(7, '0', 'image', '1000_F_264332964_HbSNtniULzbSl56oHI5E4bVrBz0Hfycm.jpg', 8, 'test', 1687461869, 1),
+(8, '0', 'image', '1000_F_264332964_HbSNtniULzbSl56oHI5E4bVrBz0Hfycm.jpg', 11, '', 1691430959, 7);
 
 -- --------------------------------------------------------
 
@@ -266,27 +159,17 @@ CREATE TABLE `doctor` (
   `address` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `phone` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `department_id` int(11) NOT NULL,
-  `profile` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `profile` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(500) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`doctor_id`, `name`, `email`, `password`, `address`, `phone`, `department_id`, `profile`) VALUES
-(1, 'David K. Murphy', 'davidmur@mail.com', 'password123', '52 Kelly Drive', '3240006965', 4, 'none'),
-(2, 'William Dcruz', 'williamd@mail.com', 'password', '65 Bloomfield Way', '7777777777', 3, 'none'),
-(3, 'Ethel M. Drake', 'etheld@mail.com', 'password', '15 C Street', '4589998888', 18, 'Test'),
-(4, 'Peter N. Cundiff', 'peterc@mail.com', 'password', '17 Wayback Lane', '3545557777', 5, 'Test'),
-(5, 'Anne K. Alden', 'annek@mail.com', 'password', '23 Allison Avenue', '8888885547', 6, 'Test'),
-(6, 'Gary B. Bartz', 'garybb@mail.com', 'password', '24 James Martin Circle', '1458745877', 8, 'Test'),
-(7, 'Benjamin M. Moran', 'benjamin@mail.com', 'password', '19 Ritter Avenue', '7458966666', 9, 'Test'),
-(8, 'Sandra T. Carter', 'carter@mail.com', 'password123', '61 Mudlick Road', '7774445877', 10, 'Test'),
-(9, 'Alberto J. Merritt', 'albertoj@mail.com', 'password', '15 Tator Patch Road', '7415554470', 11, 'Test'),
-(10, 'Sarah R. Culbertson', 'sarahrr@mail.com', 'password', '28 Harry Place', '4445552210', 12, 'Test'),
-(11, 'Zoila C. Vicini', 'zoilac@mail.com', 'password', '79 Wildwood Street', '7850000010', 13, 'Test'),
-(12, 'Deanne C. Johnson', 'deannec@mail.com', 'password', '34 Johnson Street', '7458887777', 14, 'Test'),
-(13, 'Pauline J. Chambers', 'pauline@mail.com', 'password', '19 Layman Avenue', '74588888888', 20, 'Test');
+INSERT INTO `doctor` (`doctor_id`, `name`, `email`, `password`, `address`, `phone`, `department_id`, `profile`, `image`) VALUES
+(1, 'Amna ', 'amna@gmail.com', 'asdasd', 'Faisalabad, Pakistan', '030000000000', 1, 'test', '894f820083162a0df5785f3f8565a070.jpg'),
+(2, 'Zoha', 'zoha@gmail.com', 'asdasd', 'Lahore, Pakistan', '124524522121', 24, 'test', '2937846e7fd305b1139f82c53ebc93e6.jpeg');
 
 -- --------------------------------------------------------
 
@@ -345,12 +228,8 @@ CREATE TABLE `laboratorist` (
 --
 
 INSERT INTO `laboratorist` (`laboratorist_id`, `name`, `email`, `password`, `address`, `phone`) VALUES
-(1, 'Melvin R. Jones', 'mrj@mail.com', 'lab789', '26 Shinn Avenue', '3365478880'),
-(2, 'Robert V. Jacob', 'robert@mail.com', 'password', '14 Trainer Avenue', '7125698569'),
-(3, 'Mark T. Weiss', 'mark@mail.com', 'password', '72 Lincoln Street', '7000002560'),
-(4, 'Winston C. Hensley', 'winston@mail.com', 'password', '95 Hartland Avenue', '3745696969'),
-(5, 'Rose J. Walters', 'walters@mail.com', 'password', '82 Winifred Way', '7125896565'),
-(6, 'Danny C. Williamson', 'dannyc@mail.com', 'password123', '29 Emeral Dreams Drive', '7145552450');
+(1, 'test lab', 'mrj@mail.com', 'lab789', '26 Shinn Avenue', '3365478880'),
+(7, 'Test Lab', 'testlab@gmail.com', 'asdASD', 'test lab', '031527558587');
 
 -- --------------------------------------------------------
 
@@ -738,44 +617,6 @@ INSERT INTO `noticeboard` (`notice_id`, `notice_title`, `notice`, `create_timest
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nurse`
---
-
-CREATE TABLE `nurse` (
-  `nurse_id` int(11) NOT NULL,
-  `name` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `address` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `phone` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `nurse`
---
-
-INSERT INTO `nurse` (`nurse_id`, `name`, `email`, `password`, `address`, `phone`) VALUES
-(1, 'Barbara S. Joseph\n', 'barbarajo@mail.com', 'nurse6990', '207 Airplane Avenue', '3698741258'),
-(2, 'Melissa J. Pate', 'melissa@mail.com', 'password', '4 Hornor Avenue', '7896547855'),
-(3, 'Rebecca T. Brown', 'rebecca@mail.com', 'password', '84 Elmwood Avenue', '7852221140'),
-(4, 'Sara J. Lozano', 'saraloz@mail.com', 'password', '39 Arron Smith Drive', '4589999980'),
-(5, 'Joan R. Reyes', 'joanr@mail.com', 'password', '32 Jerry Toth Drive', '4587770010'),
-(6, 'Joyce B. Greeley', 'joyc@mail.com', 'password', '9 Prospect Street', '7414445870'),
-(7, 'Iris C. McLain', 'irisc@mail.com', 'password', '94 Lewis Street', '7896665470'),
-(8, 'Sylvie M. Carter', 'sylvie@mail.com', 'password123', '45 Sand Fork Road', '7896665555'),
-(9, 'Regan C. Thomas', 'regan@mail.com', 'password', '80 Palmer Road', '7890001111'),
-(10, 'Kathleen R. Brown', 'kathleen@mail.com', 'password', '83 Paul Wayne Haggerty Road', '2585555555'),
-(11, 'Margaret G. Fletcher', 'fletcher@mail.com', 'password', '83 Hudson Street', '8547878787'),
-(12, 'Gwen J. McDole', 'gwenm@mail.com', 'password', '77 Melody Lane', '8541111111'),
-(13, 'Carla E. Anderson', 'carle@mail.com', 'password', '61 George Avenue', '2545552210'),
-(14, 'Bonnie H. Palmer', 'bonnie@mail.com', 'password', '24 Ferguson Street', '7850001111'),
-(15, 'Violet G. Alfonso', 'violet@mail.com', 'password', '17 Doe Meadow Drive', '3245554580'),
-(16, 'Kathleen A. Hunt', 'kathlh@mail.com', 'password', '27 Geraldine Lane', '1258887878'),
-(17, 'Gloria P. Hayes', 'gloria@mail.com', 'password', '22 Columbia Mine Road', '3479545450');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `patient`
 --
 
@@ -798,47 +639,15 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_id`, `name`, `email`, `password`, `address`, `phone`, `sex`, `birth_date`, `age`, `blood_group`, `account_opening_timestamp`) VALUES
-(1, 'Marc Jones', 'marc@mail.com', 'patient13309', '44 Burton Avenue', '2354547878', 'male', '03/04/1981', 34, 'B+', 1448984171),
-(3, 'Thomas', 'thomasw@mail.com', 'password', '7775 Alac Avenue', '7450002650', 'male', '03/31/1990', 32, 'AB+', 1620900518),
-(4, 'Elon Depp', 'elondp@mail.com', 'password', '114 Test', '7774441144', 'male', '12/14/1993', 27, 'A-', 1651060241),
-(5, 'Kyle E. Moore', 'kyle@mail.com', 'password123', '33 Williams Avenue', '2365554500', 'male', '04/14/1994', 28, 'AB+', 1651084360),
-(6, 'Chester H. Smith', 'chesterm@mail.com', 'password', '54 West Drive', '3332221450', 'male', '04/06/1999', 23, 'O+', 1651084418),
-(7, 'Sherie A. Phipps', 'sherie@mail.com', 'password', '54 Tori Lane', '4521216996', 'female', '04/01/1990', 32, 'B+', 1651084465),
-(8, 'Julie J. Gentry', 'juliee@mail.com', 'password', '2 Webster Street', '3214569999', 'female', '02/03/1990', 32, 'B+', 1651084514),
-(9, 'Robert L. Thompson', 'thompson@mail.com', 'password', '94 Stewart Street', '3458887777', 'male', '06/03/1990', 31, 'A-', 1651084570),
-(10, 'Yesenia J. Denby', 'yesenia@mail.com', 'password', '10 Twin Oaks Drive', '7850002222', 'female', '07/08/1997', 24, 'B-', 1651084621),
-(11, 'Matthew J. Davis', 'matthw@mail.com', 'password', '74 Ruckman Road', '3560001450', 'male', '01/05/2000', 21, 'O+', 1651084682),
-(12, 'Christian R. Bergstrom', 'christianb@mail.com', 'pass', '25 Locust Court', '3450001010', 'male', '03/23/1998', 24, 'O-', 1651084731),
-(13, 'Roy J. Woods', 'royw@mail.com', 'password', '73 Eagles Nest Drive', '7850012457', 'male', '02/12/1980', 42, 'O+', 1651084783),
-(14, 'Misty A. Brennen', 'mistya@mail.com', 'pass', '55 Lyndon Street', '32566666660', 'female', '04/28/1975', 46, 'A+', 1651084901),
-(15, 'Francis Thomason', 'francis@mail.com', 'password', '21 Spinnaker Lane', '4445550012', 'male', '02/17/1968', 54, 'B+', 1651084953),
-(16, 'Mary Rockwell', 'maryrr@mail.com', 'password', '709 Froe Street', '7896547800', 'female', '04/10/1987', 35, 'A+', 1651085014);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payment`
---
-
-CREATE TABLE `payment` (
-  `payment_id` int(11) NOT NULL,
-  `payment_type` longtext NOT NULL,
-  `transaction_id` longtext NOT NULL,
-  `invoice_id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL,
-  `method` longtext NOT NULL,
-  `description` longtext NOT NULL,
-  `amount` int(11) NOT NULL,
-  `timestamp` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`payment_id`, `payment_type`, `transaction_id`, `invoice_id`, `patient_id`, `method`, `description`, `amount`, `timestamp`) VALUES
-(4, 'Demo Payment', '544507', 3, 5, 'cash', 'This is a demo payment', 125, 1651201325),
-(3, 'Op104', '994782', 4, 6, 'cash', 'Test. Test. Test. Test. Test. Test. Test. Test. Test. ', 2335, 1651170342);
+(4, 'Bazil Farooq', 'mianbazil21@gmail.com', 'asdasd', '', '03046810547', '', '', 0, '', 0),
+(5, 'tanveer khan', 'tanveer@gmail.com', 'asdasd', 'fsd', '031514145621', 'male', '2001-10-16', 13, 'B+', 1687416734),
+(2, 'Test Patient', 'test@gmail.com', 'asdasd', 'Faisalabad, Pakistan', '034214245522', 'male', '02/08/1999', 24, 'A+', 1686942450),
+(6, 'Yaseen Ashgar ', 'yaseen@gmail.com', 'asdasd', '', '0315141451421', '', '', 0, '', 0),
+(7, 'Bazil Farooq', 'nightvision0099@gmail.com', 'asdasd', '', '+923046810547', '', '', 0, '', 0),
+(8, 'usamma', 'usama@gmail.com', 'asdasd', '', '0241553544', '', '', 0, '', 0),
+(9, 'yasseen', 'yaseen@gmail.com', 'asdasd', '', '1201201210', '', '', 0, '', 0),
+(10, 'Talal', 'talal@gmail.com', 'asdasd', '', '03152525455', '', '', 0, '', 0),
+(11, 'Anika', 'anika@gmail.com', 'asdasd', '', '0312552145552', '', '', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -860,10 +669,8 @@ CREATE TABLE `pharmacist` (
 --
 
 INSERT INTO `pharmacist` (`pharmacist_id`, `name`, `email`, `password`, `address`, `phone`) VALUES
-(1, 'Fermin N. Campbell', 'campb@mail.com', 'pharmacist13313', '13 Cooks Mine Road', '1458965785'),
-(2, 'George D. Ruppert', 'georged@mail.com', 'password', '31 Stiles Street', '7854444444'),
-(3, 'Charles H. Daniel', 'charles@mail.com', 'password123', '75 Clay Lick Road', '8885554470'),
-(4, 'Selma J. Anderson', 'selma@mail.com', 'password', '99 Broadway Avenue', '7412587454');
+(5, 'Test Phamrcy', 'testadasd@gmail.com', 'asdasd', 'House test address', '03046804547'),
+(6, 'Test Phamrcy asda', 'test@gmail.com', 'asdasd', 'House test address', '03046804547');
 
 -- --------------------------------------------------------
 
@@ -879,16 +686,25 @@ CREATE TABLE `prescription` (
   `case_history` longtext NOT NULL,
   `medication` longtext NOT NULL,
   `medication_from_pharmacist` longtext NOT NULL,
-  `description` longtext NOT NULL
+  `description` longtext NOT NULL,
+  `app_id` varchar(100) DEFAULT NULL,
+  `test_ids` text DEFAULT NULL,
+  `pharm_id` varchar(200) DEFAULT NULL,
+  `lab_id` varchar(200) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `prescription`
 --
 
-INSERT INTO `prescription` (`prescription_id`, `creation_timestamp`, `doctor_id`, `patient_id`, `case_history`, `medication`, `medication_from_pharmacist`, `description`) VALUES
-(6, 1651170030, 11, 6, 'Test. Test Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test'),
-(4, 1651161041, 8, 5, 'This is a demo case history for testing purpose!', 'This is a sample medication for testing purpose!', 'This is a sample medication&nbsp;for testing purpose!', 'This is a demo description for testing purpose!');
+INSERT INTO `prescription` (`prescription_id`, `creation_timestamp`, `doctor_id`, `patient_id`, `case_history`, `medication`, `medication_from_pharmacist`, `description`, `app_id`, `test_ids`, `pharm_id`, `lab_id`) VALUES
+(6, 1651170030, 11, 6, 'Test. Test Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test', 'Test. Test Test. Test Test. Test', NULL, NULL, NULL, NULL),
+(4, 1651161041, 8, 5, 'This is a demo case history for testing purpose!', 'This is a sample medication for testing purpose!', 'This is a sample medication&nbsp;for testing purpose!', 'This is a demo description for testing purpose!', NULL, NULL, NULL, NULL),
+(7, 1687455008, 2, 5, 'test&nbsp;Case History', 'test&nbsp;Medication', 'Medication from Pharmacist', 'Description', NULL, NULL, NULL, NULL),
+(8, 1687456135, 2, 2, '', '', '', '', NULL, '3,4', '5', '1'),
+(9, 1691341195, 2, 8, 'test', 'test', 'test', 'stt', NULL, '3,5', '', '1'),
+(10, 1691430389, 2, 10, 'test test', 'test test', 'test test', 'test test', NULL, '3,4', NULL, NULL),
+(11, 1691430748, 2, 11, 'test test', 'test test', 'test test', 'test test', NULL, '3,4', '5', '7');
 
 -- --------------------------------------------------------
 
@@ -953,13 +769,36 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`settings_id`, `type`, `description`) VALUES
-(1, 'system_name', 'Hospital Management System'),
+(1, 'system_name', 'Clinic Management System'),
 (7, 'system_email', 'test@mail.com'),
-(2, 'system_title', 'Hospital Management System'),
+(2, 'system_title', 'Clinic Management System'),
 (3, 'address', 'test address'),
 (4, 'phone', '36977785444'),
-(5, 'paypal_email', 'paypal@paypol.com'),
+(5, 'admin_email', 'admin@gmail.com'),
 (6, 'currency', 'PKR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_coding`
+--
+
+CREATE TABLE `test_coding` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_date` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `test_coding`
+--
+
+INSERT INTO `test_coding` (`id`, `name`, `description`, `created_date`) VALUES
+(3, 'Complete Blood Count (CBC)', 'Measures different components of blood, including red blood cells, white blood cells, and platelets, providing information about overall health and detecting conditions like anemia, infections, and blood disorders.', '2023-06-22'),
+(4, 'Basic Metabolic Panel (BMP)', 'Measures various electrolytes (sodium, potassium, chloride), kidney function markers (creatinine, blood urea nitrogen), and glucose levels to assess kidney function, fluid balance, and metabolic status.', '2023-06-22'),
+(5, 'Lipid Profile', 'Measures levels of cholesterol and triglycerides in the blood, providing insights into cardiovascular health and risk of heart disease.', '2023-06-22'),
+(6, 'Liver Function Tests (LFTs)', 'Evaluates liver function by measuring levels of enzymes, bilirubin, and proteins, helping to diagnose liver diseases, monitor liver damage, and assess liver health.', '2023-06-22');
 
 --
 -- Indexes for dumped tables
@@ -982,30 +821,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `appointment`
   ADD PRIMARY KEY (`appointment_id`);
-
---
--- Indexes for table `bed`
---
-ALTER TABLE `bed`
-  ADD PRIMARY KEY (`bed_id`);
-
---
--- Indexes for table `bed_allotment`
---
-ALTER TABLE `bed_allotment`
-  ADD PRIMARY KEY (`bed_allotment_id`);
-
---
--- Indexes for table `blood_bank`
---
-ALTER TABLE `blood_bank`
-  ADD PRIMARY KEY (`blood_group_id`);
-
---
--- Indexes for table `blood_donor`
---
-ALTER TABLE `blood_donor`
-  ADD PRIMARY KEY (`blood_donor_id`);
 
 --
 -- Indexes for table `department`
@@ -1080,22 +895,10 @@ ALTER TABLE `noticeboard`
   ADD PRIMARY KEY (`notice_id`);
 
 --
--- Indexes for table `nurse`
---
-ALTER TABLE `nurse`
-  ADD PRIMARY KEY (`nurse_id`);
-
---
 -- Indexes for table `patient`
 --
 ALTER TABLE `patient`
   ADD PRIMARY KEY (`patient_id`);
-
---
--- Indexes for table `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`payment_id`);
 
 --
 -- Indexes for table `pharmacist`
@@ -1128,6 +931,12 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`settings_id`);
 
 --
+-- Indexes for table `test_coding`
+--
+ALTER TABLE `test_coding`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1147,49 +956,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `bed`
---
-ALTER TABLE `bed`
-  MODIFY `bed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `bed_allotment`
---
-ALTER TABLE `bed_allotment`
-  MODIFY `bed_allotment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `blood_bank`
---
-ALTER TABLE `blood_bank`
-  MODIFY `blood_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `blood_donor`
---
-ALTER TABLE `blood_donor`
-  MODIFY `blood_donor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `diagnosis_report`
 --
 ALTER TABLE `diagnosis_report`
-  MODIFY `diagnosis_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `diagnosis_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `email_template`
@@ -1207,7 +992,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `laboratorist`
 --
 ALTER TABLE `laboratorist`
-  MODIFY `laboratorist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `laboratorist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -1240,34 +1025,22 @@ ALTER TABLE `noticeboard`
   MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `nurse`
---
-ALTER TABLE `nurse`
-  MODIFY `nurse_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `payment`
---
-ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pharmacist`
 --
 ALTER TABLE `pharmacist`
-  MODIFY `pharmacist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pharmacist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `report`
@@ -1286,6 +1059,12 @@ ALTER TABLE `services`
 --
 ALTER TABLE `settings`
   MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `test_coding`
+--
+ALTER TABLE `test_coding`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

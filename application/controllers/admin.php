@@ -102,8 +102,7 @@ class Admin extends CI_Controller
 
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
-				if (!$this->upload->do_upload('doctor_img')) {
-				} else {
+				if (!$this->upload->do_upload('doctor_img')) { } else {
 					$data_image_upload = array('upload_image_data' => $this->upload->data());
 					$filename = $data_image_upload['upload_image_data']['file_name'];
 				}
@@ -135,8 +134,7 @@ class Admin extends CI_Controller
 
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
-				if (!$this->upload->do_upload('doctor_img')) {
-				} else {
+				if (!$this->upload->do_upload('doctor_img')) { } else {
 					$data_image_upload = array('upload_image_data' => $this->upload->data());
 					$filename = $data_image_upload['upload_image_data']['file_name'];
 				}
@@ -173,8 +171,8 @@ class Admin extends CI_Controller
 			redirect(base_url() . 'index.php?login', 'refresh');
 
 		if ($param1 == 'create') {
-			$data['service_name']= $this->input->post('service_name');
-			$data['service_des']= $this->input->post('service_des');
+			$data['service_name'] = $this->input->post('service_name');
+			$data['service_des'] = $this->input->post('service_des');
 			$this->db->insert('services', $data);
 			// $this->email_model->account_opening_email('doctor', $data['email']); //SEND EMAIL ACCOUNT OPENING EMAIL
 			$this->session->set_flashdata('flash_message', ('Services Opened'));
@@ -184,8 +182,8 @@ class Admin extends CI_Controller
 
 
 		if ($param1 == 'edit' && $param2 == 'do_update') {
-			$data['service_name']= $this->input->post('service_name');
-			$data['service_des']= $this->input->post('service_des');
+			$data['service_name'] = $this->input->post('service_name');
+			$data['service_des'] = $this->input->post('service_des');
 			$this->db->where('id', $param3);
 			$this->db->update('services', $data);
 			$this->session->set_flashdata('flash_message', ('Services Updated'));
@@ -206,7 +204,7 @@ class Admin extends CI_Controller
 		$page_data['page_name']  = 'manage_services';
 		$page_data['page_title'] = ('Manage Services');
 		$this->db->order_by('id', 'desc');
-		$page_data['services']= $this->db->get('services')->result_array();
+		$page_data['services'] = $this->db->get('services')->result_array();
 		$this->load->view('index', $page_data);
 	}
 
@@ -456,7 +454,7 @@ class Admin extends CI_Controller
 
 			redirect(base_url() . 'index.php?login', 'refresh');
 
-		
+
 
 		if ($param1 == 'create') {
 
@@ -471,7 +469,6 @@ class Admin extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Appointment Created'));
 
 			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
-
 		}
 
 		if ($param1 == 'edit' && $param2 == 'do_update') {
@@ -489,9 +486,6 @@ class Admin extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Appointment Updated'));
 
 			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
-
-			
-
 		} else if ($param1 == 'edit') {
 
 			$page_data['edit_profile'] = $this->db->get_where('appointment', array(
@@ -499,7 +493,6 @@ class Admin extends CI_Controller
 				'appointment_id' => $param2
 
 			))->result_array();
-
 		}
 
 		if ($param1 == 'delete') {
@@ -511,7 +504,6 @@ class Admin extends CI_Controller
 			$this->session->set_flashdata('flash_message', ('Appointment Deleted'));
 
 			redirect(base_url() . 'index.php?admin/view_appointment', 'refresh');
-
 		}
 
 		$page_data['page_name']    = 'view_appointment';
@@ -521,7 +513,6 @@ class Admin extends CI_Controller
 		$page_data['appointment'] = $this->db->get('appointment')->result_array();
 
 		$this->load->view('index', $page_data);
-
 	}
 
 
@@ -926,22 +917,28 @@ class Admin extends CI_Controller
 		))->result_array();
 		$this->load->view('index', $page_data);
 	}
-	public function book_app(){
+	public function book_app()
+	{
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$pdata['name'] = $_POST['name'];
-		$pdata['email'] = $_POST['email'];
-		$pdata['password'] = $_POST['password'];
-		$pdata['phone'] = $_POST['phone'];
-		$bdata['datetime'] = date("Y-m-d h:i:sa");
-		$bdata['appointment_timestamp'] = strtotime($_POST['datetime']);
-		$bdata['doctor_id']  = $_POST['doctor'];
-		$bdata['message']  = $_POST['message'];
-		$this->db->insert('patient', $pdata);
-		$bdata['patient_id'] = $patient_id = $this->db->insert_id();
+			$pdata['name'] = $_POST['name'];
+			$pdata['email'] = $_POST['email'];
+			$pdata['password'] = $_POST['password'];
+			$pdata['phone'] = $_POST['phone'];
+			$bdata['datetime'] = date("Y-m-d h:i:sa");
+			$bdata['appointment_timestamp'] = strtotime($_POST['datetime']);
+			$bdata['doctor_id']  = $_POST['doctor'];
+			$bdata['message']  = $_POST['message'];
+			$this->db->insert('patient', $pdata);
+			$bdata['patient_id'] = $patient_id = $this->db->insert_id();
 
-		$this->db->insert('appointment', $bdata);
-		$this->session->set_flashdata('flash_message', ('Your Appointment is Booked! Please Login your Account'));
-		redirect(base_url() . 'index.php?Web');
+			$this->db->insert('appointment', $bdata);
+			$this->session->set_flashdata('flash_message', ('Your Appointment is Booked! Please Login your Account'));
+			redirect(base_url() . 'index.php?Web');
 		}
+	}
+	public function getdep()
+	{
+		$doctor_id = $_POST['doctor'];
+		echo $doctor_id;
 	}
 }

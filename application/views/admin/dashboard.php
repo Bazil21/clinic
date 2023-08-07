@@ -129,7 +129,7 @@
 
 
 
-
+<!-- 
                     <div class="span2 action-nav-button" style="background-color: #FF6969;">
 
                         <a href="<?php echo base_url(); ?>index.php?admin/view_medicine">
@@ -140,7 +140,7 @@
 
                         </a>
 
-                    </div>
+                    </div> -->
                     <div class="span2 action-nav-button" style="background-color: #41644A;">
 
                         <a href="<?php echo base_url(); ?>index.php?admin/manage_noticeboard">

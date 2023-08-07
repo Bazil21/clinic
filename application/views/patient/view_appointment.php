@@ -46,7 +46,7 @@
 
             <!----TABLE LISTING STARTS--->
 
-            <div class="tab-pane box <?php if(!isset($edit_profile))echo 'active';?>" id="list">
+            <div class="tab-pane box <?php if(!isset($edit_profile) )echo 'active';?>" id="list">
 
 				
 
@@ -70,13 +70,15 @@
 
                     <tbody>
 
-                    	<?php $count = 1;foreach($appointments as $row):?>
+                    	<?php $count = 1; 
+						foreach($appointments as $row) : 
+						?>
 
                         <tr>
 
                             <td><?php echo $count++;?></td>
 
-                            <td><?php echo date('d M,Y', $row['datetime']);?></td>
+							<td><?php echo date('d M,Y', $row['appointment_timestamp']); ?></td>
 
 							<td><?php echo $this->crud_model->get_type_name_by_id('doctor',$row['doctor_id'],'name');?></td>
 
